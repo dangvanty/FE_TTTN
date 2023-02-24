@@ -1,14 +1,34 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { createRoot } from 'react-dom/client';
+import App from '#/routers/router';
 import reportWebVitals from './reportWebVitals';
+import GlobalStyles from '#/assets/sass/GlobalStyles';
+import { ToastProvider } from 'react-toast-notifications';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from './redux/reducers/rootReducer';
+import { load, save } from 'redux-localstorage-simple';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = createStore(rootReducer, load(), composeWithDevTools(applyMiddleware(thunk, save())));
+
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    {/* bọc scss */}
+    <GlobalStyles>
+      {/* bọc redux */}
+      <Provider store={store}>
+        {/* bọc thông báo */}
+        <ToastProvider placement="bottom-left">
+          <App />
+        </ToastProvider>
+      </Provider>
+    </GlobalStyles>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
