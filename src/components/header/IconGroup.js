@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import MenuCart from './sub-components/MenuCart';
 import { removeFromCart } from '#/redux/action/cartActions';
 
-const IconGroup = ({ currency, cartData, wishlistData, compareData, removeFromCart, iconWhiteClass }) => {
+const IconGroup = ({ currency, cartData, wishlistData, removeFromCart, iconWhiteClass }) => {
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle('active');
   };
@@ -48,12 +48,6 @@ const IconGroup = ({ currency, cartData, wishlistData, compareData, removeFromCa
           </ul>
         </div>
       </div>
-      <div className="same-style header-compare">
-        <Link to={process.env.PUBLIC_URL + '/compare'}>
-          <i className="pe-7s-shuffle" />
-          <span className="count-style">{compareData && compareData.length ? compareData.length : 0}</span>
-        </Link>
-      </div>
       <div className="same-style header-wishlist">
         <Link to={process.env.PUBLIC_URL + '/wishlist'}>
           <i className="pe-7s-like" />
@@ -85,7 +79,6 @@ const IconGroup = ({ currency, cartData, wishlistData, compareData, removeFromCa
 
 IconGroup.propTypes = {
   cartData: PropTypes.array,
-  compareData: PropTypes.array,
   currency: PropTypes.object,
   iconWhiteClass: PropTypes.string,
   removeFromCart: PropTypes.func,
@@ -97,7 +90,6 @@ const mapStateToProps = (state) => {
     currency: state.currencyData,
     cartData: state.cartData,
     wishlistData: state.wishlistData,
-    compareData: state.compareData,
   };
 };
 

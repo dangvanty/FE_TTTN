@@ -45,7 +45,7 @@ const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass, headerBgClass
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
-              <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
+              <Logo imageUrl="/assets/img/icon-img/logo.png" logoClass="logo" />
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}

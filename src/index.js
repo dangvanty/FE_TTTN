@@ -8,11 +8,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './redux/reducers/rootReducer';
 import { load, save } from 'redux-localstorage-simple';
 import { createStore, applyMiddleware } from 'redux';
+import products from './data/products.json';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import { fetchProducts } from './redux/action/productActions';
 
 const store = createStore(rootReducer, load(), composeWithDevTools(applyMiddleware(thunk, save())));
-
+// fetch products from json file
+store.dispatch(fetchProducts(products));
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 

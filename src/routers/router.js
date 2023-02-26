@@ -10,7 +10,17 @@ import { BreadcrumbsProvider } from 'react-breadcrumbs-dynamic';
 
 const Home = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('#/pages/home/Home')), 2000);
+    setTimeout(() => resolve(import('#/pages/home/Home')), 500);
+  });
+});
+const Contact = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/others/Contact')), 2000);
+  });
+});
+const Notfound = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/others/Notfound')), 500);
   });
 });
 const App = (props) => {
@@ -42,6 +52,8 @@ const App = (props) => {
           >
             <Routes>
               <Route exact path={'/'} element={<Home />} />
+              <Route path={'/contact'} element={<Contact />} />
+              <Route path="*" element={<Notfound />} />
             </Routes>
           </Suspense>
         </ScrollToTop>

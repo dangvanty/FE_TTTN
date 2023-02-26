@@ -1,0 +1,54 @@
+@import 'Variable';
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  height: calc(100vh - 300px);
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: $theme-color;
+  width: 20px;
+  height: 30px;
+  @media #{$xs-layout} {
+    width: 10px;
+    height: 20px;
+  }
+}
+.swiper-pagination-bullet-active {
+  background: $theme-color;
+}
+
+.HeroSliderOne {
+  margin-bottom: 2rem;
+}
+
+.service-slide {
+  flex-direction: column;
+  gap: 10px;
+  .content {
+    width: 100%;
+    height: 70%;
+    word-wrap: break-word;
+  }
+  .button-class {
+  }
+}
