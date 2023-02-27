@@ -1,7 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { useEffect, Suspense, lazy } from 'react';
-import ScrollToTop from '#/helper/scroll-top';
+import ScrollToTop from '#/helper/ScrollTop';
 import { multilanguage, loadLanguages } from 'redux-multilanguage';
 import { connect } from 'react-redux';
 import { BreadcrumbsProvider } from 'react-breadcrumbs-dynamic';
