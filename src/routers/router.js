@@ -23,6 +23,34 @@ const Notfound = lazy(() => {
     setTimeout(() => resolve(import('#/pages/others/Notfound')), 500);
   });
 });
+const ShopProductPage = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/shop/ShopProduct')), 500);
+  });
+});
+const About = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/others/About')), 500);
+  });
+});
+
+const Cart = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/others/Cart')), 500);
+  });
+});
+
+const Checkout = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/others/Checkout')), 500);
+  });
+});
+const WishList = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/others/WishList')), 500);
+  });
+});
+
 const App = (props) => {
   useEffect(() => {
     props.dispatch(
@@ -53,6 +81,11 @@ const App = (props) => {
             <Routes>
               <Route exact path={'/'} element={<Home />} />
               <Route path={'/contact'} element={<Contact />} />
+              <Route path={'/shop'} element={<ShopProductPage />} />
+              <Route path={'/about'} element={<About />} />
+              <Route path={'/cart'} element={<Cart />} />
+              <Route path={'/check'} element={<Checkout />} />
+              <Route path={'/wishlist'} element={<WishList />} />
               <Route path="*" element={<Notfound />} />
             </Routes>
           </Suspense>

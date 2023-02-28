@@ -45,3 +45,136 @@ export const getProducts = (products, category, type, limit) => {
   }
   return finalProducts.slice(0, limit ? limit : finalProducts.length);
 };
+
+export const getSortedProducts = (products, sortType, sortValue) => {
+  if (products && sortType && sortValue) {
+    if (sortType === 'category') {
+      return products.filter((product) => product.category.filter((single) => single === sortValue)[0]);
+    }
+    if (sortType === 'tag') {
+      return products.filter((product) => product.tag.filter((single) => single === sortValue)[0]);
+    }
+    if (sortType === 'color') {
+      return products.filter(
+        (product) => product.variation && product.variation.filter((single) => single.color === sortValue)[0],
+      );
+    }
+    if (sortType === 'size') {
+      return products.filter(
+        (product) =>
+          product.variation &&
+          product.variation.filter((single) => single.size.filter((single) => single.name === sortValue)[0])[0],
+      );
+    }
+    if (sortType === 'filterSort') {
+      let sortProducts = [...products];
+      if (sortValue === 'default') {
+        return sortProducts;
+      }
+      if (sortValue === 'priceHighToLow') {
+        return sortProducts.sort((a, b) => {
+          return b.price - a.price;
+        });
+      }
+      if (sortValue === 'priceLowToHigh') {
+        return sortProducts.sort((a, b) => {
+          return a.price - b.price;
+        });
+      }
+    }
+  }
+  return products;
+};
+
+// get unique element
+const getUniqueElemArray = (array) => {
+  let uniqueElemArray = array.filter(function (v, i, self) {
+    return i === self.indexOf(v);
+  });
+  return uniqueElemArray;
+};
+
+// get unique categories
+export const getUniqueCategories = (products) => {
+  let productCategories = [];
+  products &&
+    products.map((product) => {
+      return (
+        product.category &&
+        product.category.map((single) => {
+          return productCategories.push(single);
+        })
+      );
+    });
+  const uniqueProductCategories = getUniqueElemArray(productCategories);
+  return uniqueProductCategories;
+};
+
+// get unique tags
+export const getUniqueTags = (products) => {
+  let productTags = [];
+  products &&
+    products.map((product) => {
+      return (
+        product.tag &&
+        product.tag.map((single) => {
+          return productTags.push(single);
+        })
+      );
+    });
+  const uniqueProductTags = getUniqueElemArray(productTags);
+  return uniqueProductTags;
+};
+
+// get unique sizes
+export const getProductsUniqueSizes = (products) => {
+  let productSizes = [];
+  products &&
+    products.map((product) => {
+      return (
+        product.variation &&
+        product.variation.map((single) => {
+          return single.size.map((single) => {
+            return productSizes.push(single.name);
+          });
+        })
+      );
+    });
+  const uniqueProductSizes = getUniqueElemArray(productSizes);
+  return uniqueProductSizes;
+};
+
+// get product unique sizes
+export const getUniqueSizes = (product) => {
+  let productSizes = [];
+  product.variation &&
+    product.variation.map((singleVariation) => {
+      return (
+        singleVariation.size &&
+        singleVariation.size.map((singleSize) => {
+          return productSizes.push(singleSize.name);
+        })
+      );
+    });
+  const uniqueProductSizes = getUniqueElemArray(productSizes);
+  return uniqueProductSizes;
+};
+
+export const setActiveSort = (e) => {
+  const filterButtons = document.querySelectorAll(
+    '.sidebar-widget-list-left button, .sidebar-widget-tag button, .product-filter button',
+  );
+  filterButtons.forEach((elem) => {
+    elem.classList.remove('active');
+  });
+  e.currentTarget.classList.add('active');
+};
+
+//setlayout
+export const setActiveLayout = (e) => {
+  const gridSwitchBtn = document.querySelectorAll('.shop-tab button');
+  gridSwitchBtn.forEach((elem) => {
+    elem.classList.remove('active');
+  });
+  e.currentTarget.classList.add('active');
+};

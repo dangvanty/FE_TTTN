@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { getProducts } from '#/helper/product';
-import ProductGridSingle from '#/components/product/ProductGridSingleFour';
 import { addToCart } from '#/redux/action/cartActions';
 import { addToWishlist } from '#/redux/action/wishlistActions';
+import ProductGridListSingle from '#/components/product/ProductGridListSingle';
 
-const ProductGridHome = ({
+const ProductGrid = ({
   products,
   currency,
   addToCart,
@@ -20,7 +19,7 @@ const ProductGridHome = ({
     <Fragment>
       {products.map((product) => {
         return (
-          <ProductGridSingle
+          <ProductGridListSingle
             sliderClassName={sliderClassName}
             spaceBottomClass={spaceBottomClass}
             product={product}
@@ -37,7 +36,7 @@ const ProductGridHome = ({
   );
 };
 
-ProductGridHome.propTypes = {
+ProductGrid.propTypes = {
   addToCart: PropTypes.func,
   addToWishlist: PropTypes.func,
   cartItems: PropTypes.array,
@@ -48,9 +47,8 @@ ProductGridHome.propTypes = {
   wishlistItems: PropTypes.array,
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    products: getProducts(state.productData.products, ownProps.category, ownProps.type, ownProps.limit),
     currency: state.currencyData,
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
@@ -68,4 +66,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductGridHome);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductGrid);
