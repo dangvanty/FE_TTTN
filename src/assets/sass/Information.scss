@@ -1,0 +1,47 @@
+@import 'Variable';
+.information {
+  display: flex;
+  .avatar {
+    width: 300px;
+    height: 300px;
+    img {
+      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .title {
+    width: 100%;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    .name {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+    .line {
+      margin-top: 0.5rem;
+      width: calc(100vh - 200px);
+      height: 1px;
+      background-color: $theme-color;
+    }
+    .title-content {
+      display: flex;
+      width: 100%;
+      .text {
+        font-size: 1.2rem;
+        font-weight: 400;
+        margin-top: 1rem;
+      }
+      .left {
+        width: 50%;
+      }
+      @media #{$xxs-layout} {
+        flex-direction: column;
+      }
+    }
+  }
+  @media #{$xs-layout} {
+    flex-direction: column;
+  }
+}

@@ -39,6 +39,11 @@ const Cart = lazy(() => {
     setTimeout(() => resolve(import('#/pages/others/Cart')), 500);
   });
 });
+const LoginRegister = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/others/LoginRegister')), 500);
+  });
+});
 
 const Checkout = lazy(() => {
   return new Promise((resolve) => {
@@ -48,6 +53,11 @@ const Checkout = lazy(() => {
 const WishList = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(import('#/pages/others/WishList')), 500);
+  });
+});
+const InforUser = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/InforUser/InforUser')), 500);
   });
 });
 
@@ -70,22 +80,20 @@ const App = (props) => {
           <Suspense
             fallback={
               <div className="flone-preloader-wrapper">
-                {/* <div className="flone-preloader">
-                <span></span>
-                <span></span>
-              </div> */}
                 <div className="progress-9"></div>
               </div>
             }
           >
             <Routes>
               <Route exact path={'/'} element={<Home />} />
+              <Route exact path={'/login-register'} element={<LoginRegister />} />
               <Route path={'/contact'} element={<Contact />} />
               <Route path={'/shop'} element={<ShopProductPage />} />
               <Route path={'/about'} element={<About />} />
               <Route path={'/cart'} element={<Cart />} />
-              <Route path={'/check'} element={<Checkout />} />
+              <Route path={'/checkout'} element={<Checkout />} />
               <Route path={'/wishlist'} element={<WishList />} />
+              <Route path={'/my-account'} element={<InforUser />} />
               <Route path="*" element={<Notfound />} />
             </Routes>
           </Suspense>

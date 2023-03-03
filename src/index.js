@@ -1,5 +1,5 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom/client';
 import App from '#/routers/router';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from '#/assets/sass/GlobalStyles';
@@ -16,9 +16,7 @@ import { fetchProducts } from './redux/action/productActions';
 const store = createStore(rootReducer, load(), composeWithDevTools(applyMiddleware(thunk, save())));
 // fetch products from json file
 store.dispatch(fetchProducts(products));
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
-
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* bọc scss */}
