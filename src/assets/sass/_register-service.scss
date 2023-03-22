@@ -1,0 +1,45 @@
+.register-border {
+  margin: 0 15vw;
+  border: 1px solid $theme-color;
+
+  .register-title {
+    margin: 20px 0;
+  }
+  .form {
+    margin: 20px 50px;
+  }
+  .btn-service {
+    width: 40%;
+    margin: 0 auto;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #a749ff63;
+    transition: all 0.1s ease;
+    &:hover {
+      background-color: #a749ff;
+      transform: scale(1.05);
+      color: white;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .register-border {
+    margin: 0 5vw;
+    // height: 500px;
+    .register-title {
+      margin: 20px 0;
+    }
+  }
+}
+
+@keyframes o-rotate-360 {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

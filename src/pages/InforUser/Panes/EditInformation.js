@@ -13,7 +13,7 @@ export default function EditInformation() {
   return (
     <div className="tab-pane">
       <div className="CreateAdmin d-flex justify-content-center">
-        <form>
+        <form style={{ width: '70%' }} onSubmit={handleSubmit((data) => console.log(data))}>
           <div className="input-admin">
             <label htmlFor="">Ảnh đại diện</label>
             <div className="update">
@@ -82,7 +82,7 @@ export default function EditInformation() {
             />
             {errors.phone && <span className="text-danger">{errors.phone.message}</span>}
           </div>
-          <div className="btn_submit">
+          <div className="btn_submit" style={{ width: '50%' }}>
             <input type="submit" value="Sửa user" style={{ cursor: 'pointer' }} />
           </div>
         </form>

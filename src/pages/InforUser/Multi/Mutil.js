@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '#/sass/Mutil.scss';
+import '#/assets/sass/Mutil.scss';
 import { gallegy } from '#/assets/svg/IconSvg';
 const Mutil = ({ mutilImg }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);

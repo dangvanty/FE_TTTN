@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { camera } from '#/assets/svg/IconSvg';
+import Mutil from '../Multi/Mutil';
+import { dataTypePet } from '#/constants/constants';
 // import Mutil from '../Multi/Mutil';
 
 export default function CreatePet() {
@@ -12,13 +14,30 @@ export default function CreatePet() {
     reset,
     formState: { errors },
   } = useForm();
+  const [state, setState] = useState({
+    linkImgPet: '',
+    nameImgPet: '',
+    imgPet: '',
+    imgIdPet: '',
+    mutilImgPet: '',
+    userId: '',
+    load: false,
+    type: '',
+  });
+  const { linkImgPet, nameImgPet, mutilImgPet, imgPet, imgIdPet, userId, type, load } = state;
   const [text, setText] = useState(null);
+  const hangdleMutilImg = (e) => {
+    setState({ ...state, mutilImgPet: e });
+  };
+  const hangdelimagePet = (e) => {
+    setState({
+      ...state,
+      linkImgPet: URL.createObjectURL(e.target.files[0]),
+      nameImgPet: e.target.files[0].name,
+      imgPet: e.target.files[0],
+    });
+  };
 
-  const dataType = [
-    { value: 'chó', label: 'chó' },
-    { value: 'mèo', label: 'mèo' },
-    { value: 'khác', label: 'khác' },
-  ];
   return (
     <div className="tab-pane">
       <div className="CreateAdmin">
@@ -28,15 +47,22 @@ export default function CreatePet() {
             <div className="update">
               <div className="icon-avatar">
                 <label htmlFor="avatarPet">{camera}</label>
-                <input type="file" name="" id="avatarPet" hidden />
+                <input type="file" name="" id="avatarPet" hidden onChange={hangdelimagePet} />
               </div>
+              {linkImgPet ? (
+                <img src={linkImgPet} className="img-update" height="150px" width="250px" alt="" />
+              ) : imgIdPet ? (
+                <img src={imgIdPet} className="img-update" height="150px" width="250px" alt="" />
+              ) : (
+                ''
+              )}
               <br />
-              <span>ịij</span>
+              <span>{nameImgPet}</span>
             </div>
           </div>
           <div className="input-admin">
             <label htmlFor="">Ảnh liên quan</label>
-            {/* <Mutil mutilImg={hangdleMutilImg} /> */}
+            <Mutil mutilImg={hangdleMutilImg} />
           </div>
           <div className="input-admin">
             <label htmlFor="">Tiêu đề</label>
@@ -79,7 +105,8 @@ export default function CreatePet() {
               <textarea
                 name=""
                 id=""
-                rows="5"
+                rows="2.5"
+                style={{ resize: 'auto' }}
                 {...register('description', {
                   required: 'Không được bỏ trống!',
                   maxLength: { value: 1000, message: 'Vượt quá ký tự cho phép' },
@@ -90,7 +117,7 @@ export default function CreatePet() {
             </div>
             <div className="col-4 input-admin">
               <label htmlFor="">Loại thú cưng</label>
-              <Select closeMenuOnSelect={false} options={dataType} />
+              <Select closeMenuOnSelect={false} options={dataTypePet} />
             </div>
           </div>
           <div className="input-admin">

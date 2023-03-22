@@ -3,7 +3,7 @@ import React from 'react';
 import { multilanguage, changeLanguage } from 'redux-multilanguage';
 import { connect } from 'react-redux';
 import { changeCurrency } from '#/redux/action/currencyActions';
-const MobileLangCurrChange = ({ currency, changeCurrency, currentLanguageCode, dispatch }) => {
+const MobileLangCurrChange = ({ strings, currency, changeCurrency, currentLanguageCode, dispatch }) => {
   const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
     dispatch(changeLanguage(languageCode));
@@ -22,7 +22,7 @@ const MobileLangCurrChange = ({ currency, changeCurrency, currentLanguageCode, d
   return (
     <div className="mobile-menu-middle">
       <div className="lang-curr-style">
-        <span className="title mb-2">Choose Language </span>
+        <span className="title mb-2">{strings['Choose_Language']}</span>
         <select
           value={currentLanguageCode}
           onChange={(e) => {
@@ -35,7 +35,7 @@ const MobileLangCurrChange = ({ currency, changeCurrency, currentLanguageCode, d
         </select>
       </div>
       <div className="lang-curr-style">
-        <span className="title mb-2">Choose Currency</span>
+        <span className="title mb-2">{strings['Choose_Currency']}</span>
         <select
           value={currency.currencyName}
           onChange={(e) => {
@@ -52,6 +52,7 @@ const MobileLangCurrChange = ({ currency, changeCurrency, currentLanguageCode, d
 };
 
 MobileLangCurrChange.propTypes = {
+  strings: PropTypes.object,
   changeCurrency: PropTypes.func,
   currency: PropTypes.object,
   currentLanguageCode: PropTypes.string,

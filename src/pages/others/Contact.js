@@ -11,22 +11,42 @@ import SectionTitle from '#/components/section-title/SectionTitle';
 import { multilanguage } from 'redux-multilanguage';
 import { connect } from 'react-redux';
 import { locationmap_cts } from '#/constants/constants';
+import { send } from 'emailjs-com';
+import { useToasts } from 'react-toast-notifications';
 const Contact = ({ strings }) => {
   const { pathname } = useLocation();
+  const { addToast } = useToasts();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+  const PUBLIC_ID = process.env.REACT_APP_EMAILJS_PUBLIC_ID;
+  // console.log({ SERVICE_ID, TEMPLATE_ID, PUBLIC_ID });
+  const contactSend = (data) => {
+    // e.preventDefault();
+    console.log('::'.repeat(10), data);
+    send(SERVICE_ID, TEMPLATE_ID, data, PUBLIC_ID)
+      .then(
+        () => {
+          addToast('Send information success', { appearance: 'success', autoDismiss: true });
+        },
+        (error) => {
+          console.log(error);
+        },
+      )
+      .catch((err) => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err));
+  };
   return (
     <Fragment>
       <MetaTags>
         <title>{strings['Contact_pet_service_Store']}</title>
-        <meta name="description" content="Contact of flone react minimalist eCommerce template." />
+        <meta name="description" content="Contact with us." />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>{strings['home']}</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>{strings['contact_us']}</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/'}>{strings['home']}</BreadcrumbsItem>
+      <BreadcrumbsItem to={pathname}>{strings['contact_us']}</BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
@@ -104,7 +124,7 @@ const Contact = ({ strings }) => {
                   <div className="contact-title mb-30">
                     <h2>{strings['Get_In_Touch']}</h2>
                   </div>
-                  <form className="contact-form-style" onSubmit={handleSubmit((data) => console.log(data))}>
+                  <form className="contact-form-style" onSubmit={handleSubmit(contactSend)}>
                     <div className="row">
                       <div className="col-lg-6">
                         <input
@@ -137,7 +157,7 @@ const Contact = ({ strings }) => {
                       </div>
                       <div className="col-lg-12">
                         <input
-                          placeholder="Subject*"
+                          placeholder={strings['Subject*']}
                           type="text"
                           {...register('subject', {
                             required: strings['put_something_here'],
@@ -151,7 +171,7 @@ const Contact = ({ strings }) => {
                       </div>
                       <div className="col-lg-12">
                         <textarea
-                          placeholder="Your Massege*"
+                          placeholder={strings['YourMessage*']}
                           defaultValue={''}
                           {...register('note', {
                             maxLength: {

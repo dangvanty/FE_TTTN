@@ -44,13 +44,20 @@ export default function MyPet() {
         onHide={() => setModalShow(false)}
         product={{
           image: [
-            '/assets/img/product/electronics/7.jpg',
-            '/assets/img/product/electronics/8.jpg',
-            '/assets/img/icon-img/logo.jpg',
+            'https://nld.mediacdn.vn/291774122806476800/2022/8/31/0fe714492508cc569519-1577519561841803821318-16619248441771014030833.jpg',
+            'https://huanluyenchohungcuong.vn/wp-content/uploads/2022/06/cho-pitpull.jpg',
+            'https://chocanh.vn/wp-content/uploads/tinh-cach-cho-pitbull.jpg',
           ],
-          name: 'Ảnh chó',
-          shortDescription: 'oke',
-          avatar: '/assets/img/icon-img/logo.jpg',
+          name: 'Chó pitpull mạnh mẽ',
+          price: 10000000,
+          category: 'Chó',
+          shortDescription: `s simply dummy text of the printing
+          and typesetting industry. Lorem Ipsum has 
+         been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+          and scrambled it to make a type sp`,
+          avatar:
+            'https://nld.mediacdn.vn/291774122806476800/2022/8/31/0fe714492508cc569519-1577519561841803821318-16619248441771014030833.jpg',
+          text: '<p>s simply dummy text of the and typesetting industry. Lorem Ipsum hasbeen the industry s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type sp</p>',
         }}
         currency={{}}
       />

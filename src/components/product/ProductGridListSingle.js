@@ -26,13 +26,9 @@ const ProductGridListSingle = ({
       <div className={`col-xl-4 col-sm-6 ${sliderClassName ? sliderClassName : ''}`}>
         <div className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ''}`}>
           <div className="product-img">
-            <Link to={process.env.PUBLIC_URL + '/product/' + product.id}>
-              <img className="default-img" src={process.env.PUBLIC_URL + product.image[0]} alt="" />
-              {product.image.length > 1 ? (
-                <img className="hover-img" src={process.env.PUBLIC_URL + product.image[1]} alt="" />
-              ) : (
-                ''
-              )}
+            <Link to={'/product/' + product.id}>
+              <img className="default-img" src={product.image[0]} alt="" />
+              {product.image.length > 1 ? <img className="hover-img" src={product.image[1]} alt="" /> : ''}
             </Link>
             {product.discount || product.new ? (
               <div className="product-img-badges">
@@ -79,16 +75,11 @@ const ProductGridListSingle = ({
                   </button>
                 )}
               </div>
-              <div className="pro-same-action pro-quickview">
-                <button onClick={() => setModalShow(true)} title="Quick View">
-                  <i className="pe-7s-look" />
-                </button>
-              </div>
             </div>
           </div>
           <div className="product-content text-center">
             <h3>
-              <Link to={process.env.PUBLIC_URL + '/product/' + product.id}>{product.name}</Link>
+              <Link to={'/product/' + product.id}>{product.name}</Link>
             </h3>
             <div className="product-price">
               {discountedPrice !== null ? (
@@ -107,10 +98,10 @@ const ProductGridListSingle = ({
             <div className="col-xl-4 col-md-5 col-sm-6">
               <div className="product-list-image-wrap">
                 <div className="product-img">
-                  <Link to={process.env.PUBLIC_URL + '/product/' + product.id}>
-                    <img className="default-img img-fluid" src={process.env.PUBLIC_URL + product.image[0]} alt="" />
+                  <Link to={'/product/' + product.id}>
+                    <img className="default-img img-fluid" src={product.image[0]} alt="" />
                     {product.image.length > 1 ? (
-                      <img className="hover-img img-fluid" src={process.env.PUBLIC_URL + product.image[1]} alt="" />
+                      <img className="hover-img img-fluid" src={product.image[1]} alt="" />
                     ) : (
                       ''
                     )}
@@ -129,7 +120,7 @@ const ProductGridListSingle = ({
             <div className="col-xl-8 col-md-7 col-sm-6">
               <div className="shop-list-content">
                 <h3>
-                  <Link to={process.env.PUBLIC_URL + '/product/' + product.id}>{product.name}</Link>
+                  <Link to={'/product/' + product.id}>{product.name}</Link>
                 </h3>
                 <div className="product-list-price">
                   {discountedPrice !== null ? (

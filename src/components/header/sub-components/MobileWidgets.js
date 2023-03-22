@@ -12,9 +12,6 @@ const MobileWidgets = () => {
                 <span style={{ color: 'red' }}>(+84)</span> 362988473{' '}
               </a>
             </li>
-            <li>
-              <i className="fa fa-envelope"></i> <a href="mailto:info@yourdomain.com">info@yourdomain.com</a>
-            </li>
           </ul>
         </div>
       </div>

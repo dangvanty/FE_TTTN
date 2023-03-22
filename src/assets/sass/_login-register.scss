@@ -29,7 +29,7 @@
       &:before {
         background-color: #454545;
         bottom: 5px;
-        content: "";
+        content: '';
         height: 18px;
         margin: 0 auto;
         position: absolute;
@@ -67,7 +67,7 @@
           margin-bottom: 30px;
           padding: 0 15px;
         }
-        input[type="checkbox"] {
+        input[type='checkbox'] {
           height: 15px;
           margin: 0;
           position: relative;
@@ -98,6 +98,19 @@
               }
             }
           }
+          .login-question {
+            margin-top: 30px;
+            text-align: right;
+            padding: 10px 0;
+            &-action {
+              text-decoration: underline;
+              text-underline-offset: 5px;
+              cursor: pointer;
+              &:hover {
+                color: $theme-color;
+              }
+            }
+          }
           button {
             background-color: #f2f2f2;
             border: medium none;
@@ -116,6 +129,43 @@
           }
         }
       }
+    }
+  }
+}
+.input {
+  position: relative;
+  margin-bottom: 1rem;
+  .icon {
+    color: gray;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .icon-show {
+    color: gray;
+    position: absolute;
+    top: 30%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    svg {
+      width: 20px;
+      height: 20px;
     }
   }
 }

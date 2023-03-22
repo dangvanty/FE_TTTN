@@ -1,15 +1,14 @@
 import { CHANGE_CURRENCY } from '../action/currencyActions';
 
 const initState = {
-  currencySymbol: '$',
-  currencyName: 'USD',
+  currencySymbol: 'vnđ',
+  currencyName: 'VND',
   currencyRate: 1,
 };
 
 const currencyReducer = (state = initState, action) => {
   if (action.type === CHANGE_CURRENCY) {
     const currencyName = action.payload.currencyName;
-
     if (currencyName === 'USD') {
       return {
         ...state,
@@ -21,7 +20,7 @@ const currencyReducer = (state = initState, action) => {
     if (currencyName === 'VND') {
       return {
         ...state,
-        currencySymbol: 'đ',
+        currencySymbol: 'vnđ',
         currencyRate: action.payload.currencyRate,
         currencyName,
       };

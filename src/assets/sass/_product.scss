@@ -471,7 +471,7 @@
   }
   .pro-details-list {
     margin: 20px 0 34px;
-    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
     padding: 0 0 37px;
     ul {
       li {
@@ -1808,7 +1808,7 @@
           display: none;
         }
         &.old {
-          color: #fa6bff;
+          color: #cfcfcf;
           text-decoration: line-through;
         }
       }
@@ -1915,6 +1915,8 @@
 
     a {
       img {
+        object-fit: cover;
+        min-height: 350px;
         width: 100%;
       }
     }
@@ -2013,7 +2015,7 @@
           display: none;
         }
         &.old {
-          color: #fa6bff;
+          color: #cfcfcf;
           text-decoration: line-through;
         }
       }

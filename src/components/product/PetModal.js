@@ -1,13 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect, useRef } from 'react';
-import Swiper from 'react-id-swiper';
+import React, { Fragment, useRef } from 'react';
 import { Accordion, Card, Modal } from 'react-bootstrap';
-
-import { SwiperSlide } from 'swiper/react';
-import { EffectCards } from 'swiper';
-
-import '#/assets/sass/TestSlide.scss';
-import { ClickImg } from '#/helper/DetailPetJs';
 function PetModal(props) {
   const { product } = props;
   const imgActiveEl = useRef(null);
@@ -44,9 +37,15 @@ function PetModal(props) {
             </div>
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
-                <h2>{product.name}</h2>
+                <h2 className="pet-name">{product.name}</h2>
+                <h3>
+                  Giá: <span className="text-danger">{product.price}</span>
+                </h3>
+                <h3>
+                  Loại thú cưng: <span className="text-danger">{product.category}</span>
+                </h3>
                 <div className="pro-details-list">
-                  <p>{product.shortDescription}</p>
+                  <h3 style={{ marginTop: '30px' }}>Mô tả: </h3> <p>{product.shortDescription}</p>
                 </div>
               </div>
             </div>
@@ -62,7 +61,7 @@ function PetModal(props) {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <div className="hot-content-info-wrapper">
-                      <h1>Điểm nổi bật</h1>
+                      <div dangerouslySetInnerHTML={{ __html: product.text }} />
                     </div>
                   </Card.Body>
                 </Accordion.Collapse>

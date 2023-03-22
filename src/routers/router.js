@@ -36,7 +36,7 @@ const About = lazy(() => {
 
 const Cart = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('#/pages/others/Cart')), 500);
+    setTimeout(() => resolve(import('#/pages/shop/Cart')), 500);
   });
 });
 const LoginRegister = lazy(() => {
@@ -47,17 +47,37 @@ const LoginRegister = lazy(() => {
 
 const Checkout = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('#/pages/others/Checkout')), 500);
+    setTimeout(() => resolve(import('#/pages/shop/Checkout')), 500);
   });
 });
 const WishList = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('#/pages/others/WishList')), 500);
+    setTimeout(() => resolve(import('#/pages/shop/WishList')), 500);
   });
 });
 const InforUser = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(import('#/pages/InforUser/InforUser')), 500);
+  });
+});
+const BlogHome = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/blogs/Blog')), 500);
+  });
+});
+const BlogDetail = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/blogs/BlogDetail')), 500);
+  });
+});
+const RegisterService = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/others/RegisterService')), 500);
+  });
+});
+const ProductDetail = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/shop/ProductDetail')), 500);
   });
 });
 
@@ -89,11 +109,15 @@ const App = (props) => {
               <Route exact path={'/login-register'} element={<LoginRegister />} />
               <Route path={'/contact'} element={<Contact />} />
               <Route path={'/shop'} element={<ShopProductPage />} />
+              <Route path={'/shop/product-detail'} element={<ProductDetail />} />
               <Route path={'/about'} element={<About />} />
               <Route path={'/cart'} element={<Cart />} />
               <Route path={'/checkout'} element={<Checkout />} />
               <Route path={'/wishlist'} element={<WishList />} />
               <Route path={'/my-account'} element={<InforUser />} />
+              <Route path={'/blog'} element={<BlogHome />} />
+              <Route path={'/blog-detail'} element={<BlogDetail />} />
+              <Route path={'/register-service'} element={<RegisterService />} />
               <Route path="*" element={<Notfound />} />
             </Routes>
           </Suspense>

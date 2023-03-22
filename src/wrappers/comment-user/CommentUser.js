@@ -4,10 +4,11 @@ import Rating from '@material-ui/lab/Rating';
 import { comment_user } from '#/constants/constants';
 import SectionTitle from '#/components/section-title/SectionTitle';
 import '#/assets/sass/Comment.scss';
-export default function Comment() {
+import { multilanguage } from 'redux-multilanguage';
+function Comment({ strings }) {
   return (
     <div className="Comment">
-      <SectionTitle titleText="Nhận xét người dùng" positionClass="text-center" />
+      <SectionTitle titleText={strings['user_reviews']} positionClass="text-center" />
       <Container maxWidth="lg">
         <div className="comment-content">
           <div className="comment-list">
@@ -35,7 +36,7 @@ export default function Comment() {
                             ></path>
                           </svg>
                         </div>
-                        <div className="text">{user.TEXT}</div>
+                        <div className="text">{strings[`${user.TEXT}`]}</div>
                         <div className="icon end">
                           <svg
                             aria-hidden="true"
@@ -58,7 +59,7 @@ export default function Comment() {
                           <div className="avatar">
                             <img src={user.AVT} alt="" />
                           </div>
-                          <div className="name">{user.NAME}</div>
+                          <div className="name">{strings[`${user.NAME}`]}</div>
                           <div className="star">
                             <Rating value={user.RATE} readOnly />
                           </div>
@@ -74,3 +75,5 @@ export default function Comment() {
     </div>
   );
 }
+
+export default multilanguage(Comment);

@@ -4,12 +4,12 @@ export const CHANGE_CURRENCY = 'CHANGE_CURRENCY';
 export const changeCurrency = (currencyName) => {
   const config = {
     headers: {
-      apikey: 'GmHbxWsu18pKIf6bpK6NcibTqAgcelRv',
+      apikey: process.env.REACT_APP_API_KEY_EXCHANGE,
     },
   };
   return (dispatch) => {
     axios
-      .get(`https://api.apilayer.com/fixer/latest?base=USD`, config)
+      .get(`https://api.apilayer.com/fixer/latest?base=VND`, config)
       .then((response) => {
         const rates = response.data.rates;
         let currencyRate = 0;

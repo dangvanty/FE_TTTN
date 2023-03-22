@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const MainButton = ({ strings, pathname }) => {
   return (
     <>
-      <Link to={pathname} className="MainButton">
+      <Link to={pathname} className="ServiceButton">
         {strings}
       </Link>
     </>
