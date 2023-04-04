@@ -15,8 +15,8 @@ const About = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | About us</title>
-        <meta name="description" content="About page of flone react minimalist eCommerce template." />
+        <title>PetServices | About us</title>
+        <meta name="description" content="About page of PetServices react minimalist eCommerce template." />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>About us</BreadcrumbsItem>

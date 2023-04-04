@@ -6,6 +6,7 @@ import productReducer from './productReducer';
 import { createMultilanguageReducer } from 'redux-multilanguage';
 import galleriesReducer from './galleriesReducer';
 import serviceReducer from './serviceReducer';
+import userReducer from './userReducer';
 
 const rootReducer = combineReducers({
   multilanguage: createMultilanguageReducer({ currentLanguageCode: 'vi' }),
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   productData: productReducer,
   galleriesData: galleriesReducer,
   serviceData: serviceReducer,
+  userData: userReducer,
 });
 
 export default rootReducer;

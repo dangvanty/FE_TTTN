@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 
-const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
+const NavMenu = ({ user, strings, menuWhiteClass, sidebarMenu }) => {
   return (
     <div className={` ${sidebarMenu ? 'sidebar-menu' : `main-menu ${menuWhiteClass ? menuWhiteClass : ''}`} `}>
       <nav>
@@ -15,7 +15,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
             <Link to={'/register-service'}>{strings['register_service']}</Link>
           </li>
           <li>
-            <Link to={'/shop'}>
+            <Link to={'/products'}>
               {' '}
               {strings['shop']}
               {sidebarMenu ? (
@@ -28,35 +28,15 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
             </Link>
             <ul className="submenu">
               <li>
-                <Link to={'/shop/product'}>{strings['shop_product']}</Link>
+                <Link to={'/products'}>{strings['shop_product']}</Link>
               </li>
               <li>
-                <Link to={'/shop/pet'}>{strings['shop_pet']}</Link>
+                <Link to={'/pets'}>{strings['shop_pet']}</Link>
               </li>
             </ul>
           </li>
           <li>
-            <Link to={'/blog'}>
-              {strings['blog']}
-              {sidebarMenu ? (
-                <span>
-                  <i className="fa fa-angle-right"></i>
-                </span>
-              ) : (
-                <i className="fa fa-angle-down" />
-              )}
-            </Link>
-            <ul className="submenu">
-              <li>
-                <Link to={'/blog/service'}>{strings['blog_service']}</Link>
-              </li>
-              <li>
-                <Link to={'/blog/product'}>{strings['blog_product']}</Link>
-              </li>
-              <li>
-                <Link to={'/blog/pet'}>{strings['blog_pet']}</Link>
-              </li>
-            </ul>
+            <Link to={'/blog'}>{strings['blog']}</Link>
           </li>
           <li>
             <Link to={'/about'}>{strings['about_us']}</Link>
@@ -64,6 +44,13 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
           <li>
             <Link to={'/contact'}>{strings['contact_us']}</Link>
           </li>
+          {user ? (
+            <li>
+              <Link to={'/sell-your-pet'}>{strings['Sell_pet']}</Link>
+            </li>
+          ) : (
+            ''
+          )}
         </ul>
       </nav>
     </div>
@@ -71,6 +58,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
 };
 
 NavMenu.propTypes = {
+  user: PropTypes.object,
   menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
   strings: PropTypes.object,

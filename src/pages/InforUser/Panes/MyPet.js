@@ -3,8 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { petCheckNull, petCheckPending, petCheckSuccess } from '#/assets/svg/IconSvg';
 import '#/assets/sass/MyPet.scss';
 import PetModal from '#/components/product/PetModal';
+import axiosClient from '#/helper/axiosClient';
+import { connect } from 'react-redux';
+import { fCurrency } from '#/helper/formatNumber';
+import { useToasts } from 'react-toast-notifications';
 
-export default function MyPet() {
+function MyPet({ currency }) {
+  const [modalShow, setModalShow] = useState(false);
+  const [data, setData] = useState(null);
+  const [product, setProduct] = useState(null);
+  const { addToast } = useToasts();
+
   const renderCheckAdmin = (e) => {
     if (e === 0) {
       return <Tooltip title="Chưa bật kiểm duyệt">{petCheckNull}</Tooltip>;
@@ -14,53 +23,103 @@ export default function MyPet() {
       return <Tooltip title="Đã kiểm duyệt">{petCheckSuccess}</Tooltip>;
     }
   };
-  const [modalShow, setModalShow] = useState(false);
 
+  const handleDetailClick = (item) => {
+    setModalShow(true);
+    setProduct(item);
+    console.log('item::::', item);
+  };
+  const handleDelete = (id) => {
+    axiosClient
+      .delete(`/pets/${id}`)
+      .then((res) => {
+        addToast('Xóa thành công', { appearance: 'success', autoDismiss: true });
+        setData(data.filter((el) => el.id !== id));
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const handleChangeStatus = (id, status) => {
+    axiosClient
+      .patch(`/pets/${id}`, { status: status })
+      .then((res) => {
+        addToast('Sửa thành công', { appearance: 'success', autoDismiss: true });
+        axiosClient
+          .get('/pets/getPetUser')
+          .then((res) => {
+            setData(res?.data?.rows);
+          })
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    // axiosClient.get('/users/me').then((res)=>{
+    //   setUser(res.user)
+    // })
+    axiosClient.get('/pets/getPetUser').then((res) => {
+      console.log(res);
+      setData(res?.data?.rows);
+    });
+  }, []);
+  console.log('data::::', data);
   return (
     <div className="tab-pane">
       <Grid container spacing={4}>
-        <Grid item lg={6} md={6} sm={6} xs={12}>
-          <div className="myPet">
-            <div className="avatar">
-              <img src="/assets/img/icon-img/logo.jpg" alt="" />
-            </div>
-            <div className="text">
-              <div className="text_name">chó</div>
-              <div className="text_price">908 vnđ</div>
-              <div className="detail">
-                <button className="detail-pet-btn" onClick={() => setModalShow(true)}>
-                  Chi tiết...
-                </button>
-              </div>
-            </div>
-            <div className="checkadmin">{renderCheckAdmin(1)}</div>
-            <p className="btn-delete">Xoá</p>
-            {1 === 1 ? <p className="btn-no">Không bán</p> : <p className="btn-yes">Đăng bán</p>}
-          </div>
-        </Grid>
+        {data?.length !== 0
+          ? data?.map((item) => {
+              return (
+                <Grid item lg={6} md={6} sm={6} xs={12}>
+                  <div className="myPet">
+                    <div className="avatar">
+                      <img src={item.avatar} alt="" />
+                    </div>
+                    <div className="text">
+                      <div className="text_name">{item.name}</div>
+                      <div className="text_price">
+                        {fCurrency(item?.price * currency.currencyRate)}
+                        {' ' + currency.currencySymbol}
+                      </div>
+                      <div className="detail">
+                        <button className="detail-pet-btn" onClick={() => handleDetailClick(item)}>
+                          Chi tiết...
+                        </button>
+                      </div>
+                    </div>
+                    <div className="checkadmin">{renderCheckAdmin(item.checkAdmin)}</div>
+                    {item.checkAdmin === 1 ? (
+                      <>
+                        <button className="btn-delete" onClick={() => handleDelete(item.id)}>
+                          Xoá
+                        </button>
+                        {item.status === 1 ? (
+                          <button className="btn-no" onClick={() => handleChangeStatus(item.id, 0)}>
+                            Không bán
+                          </button>
+                        ) : (
+                          <button className="btn-yes" onClick={() => handleChangeStatus(item.id, 1)}>
+                            Đăng bán
+                          </button>
+                        )}
+                      </>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </Grid>
+              );
+            })
+          : ''}
       </Grid>
-      <PetModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        product={{
-          image: [
-            'https://nld.mediacdn.vn/291774122806476800/2022/8/31/0fe714492508cc569519-1577519561841803821318-16619248441771014030833.jpg',
-            'https://huanluyenchohungcuong.vn/wp-content/uploads/2022/06/cho-pitpull.jpg',
-            'https://chocanh.vn/wp-content/uploads/tinh-cach-cho-pitbull.jpg',
-          ],
-          name: 'Chó pitpull mạnh mẽ',
-          price: 10000000,
-          category: 'Chó',
-          shortDescription: `s simply dummy text of the printing
-          and typesetting industry. Lorem Ipsum has 
-         been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-          and scrambled it to make a type sp`,
-          avatar:
-            'https://nld.mediacdn.vn/291774122806476800/2022/8/31/0fe714492508cc569519-1577519561841803821318-16619248441771014030833.jpg',
-          text: '<p>s simply dummy text of the and typesetting industry. Lorem Ipsum hasbeen the industry s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type sp</p>',
-        }}
-        currency={{}}
-      />
+      <PetModal show={modalShow} onHide={() => setModalShow(false)} product={product} currency={currency} />
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currency: state.currencyData,
+  };
+};
+export default connect(mapStateToProps)(MyPet);

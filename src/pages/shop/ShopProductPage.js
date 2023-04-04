@@ -11,20 +11,28 @@ import ShopSidebar from '#/wrappers/product/ShopSidebar';
 import ShopTopbar from '#/wrappers/product/ShopTopbar';
 import ShopProducts from '#/wrappers/product/ShopProducts';
 import { useLocation } from 'react-router-dom';
+import { fetchProducts } from '#/redux/action/productActions';
+import axiosClient from '#/helper/axiosClient';
+import { multilanguage } from 'redux-multilanguage';
 
-const ShopProductPage = ({ products }) => {
+const ShopProductPage = ({ strings, pathname1 }) => {
+  const { pathname } = useLocation();
+  const valuePetOrProduct = pathname.split('/')[1];
   const [layout, setLayout] = useState('list');
-  const [sortType, setSortType] = useState('');
+  const [sortType, setSortType] = useState(null);
   const [sortValue, setSortValue] = useState('');
   const [filterSortType, setFilterSortType] = useState('');
   const [filterSortValue, setFilterSortValue] = useState('');
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
+  const [products, setProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
-
-  const pageLimit = 15;
-  const { pathname } = useLocation();
+  const [petOrProduct, setPetOrProduct] = useState(valuePetOrProduct);
+  const [name, setName] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [type, settype] = useState(null);
+  const pageLimit = 2;
 
   const getLayout = (layout) => {
     setLayout(layout);
@@ -34,6 +42,9 @@ const ShopProductPage = ({ products }) => {
     setSortType(sortType);
     setSortValue(sortValue);
   };
+  const getSearch = (name) => {
+    setName(name);
+  };
 
   const getFilterSortParams = (sortType, sortValue) => {
     setFilterSortType(sortType);
@@ -41,22 +52,38 @@ const ShopProductPage = ({ products }) => {
   };
 
   useEffect(() => {
+    axiosClient
+      .get('/shops', { params: { page: 1, type: type, category: category, petOrProduct: petOrProduct, name: name } })
+      .then((res) => {
+        const data = [];
+        res?.data?.rows.forEach((item) => {
+          if (item.checkAdmin) {
+            item.id += 'petpet';
+            data.push(item);
+          } else {
+            data.push(item);
+          }
+        });
+        setProducts(data);
+      })
+      .catch((error) => console.log(error));
+    setPetOrProduct(valuePetOrProduct);
     let sortedProducts = getSortedProducts(products, sortType, sortValue);
     const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
     sortedProducts = filterSortedProducts;
     setSortedProducts(sortedProducts);
     setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-  }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
-
+  }, [offset, products, sortType, sortValue, filterSortType, filterSortValue, pathname, name]);
+  console.log('dfproduct:::', products);
   return (
     <Fragment>
       <MetaTags>
         <title>Pets Services | Shop Page</title>
-        <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
+        <meta name="description" content="Shop page of PetServices react minimalist eCommerce template." />
       </MetaTags>
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Shop</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/pathname'}>Shop</BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
@@ -67,7 +94,12 @@ const ShopProductPage = ({ products }) => {
             <div className="row">
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
-                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30" />
+                <ShopSidebar
+                  products={products}
+                  getSortParams={getSortParams}
+                  sideSpaceClass="mr-30"
+                  getSearch={getSearch}
+                />
               </div>
               <div className="col-lg-9 order-1 order-lg-2">
                 {/* shop topbar default */}
@@ -79,7 +111,7 @@ const ShopProductPage = ({ products }) => {
                 />
 
                 {/* shop page content default */}
-                <ShopProducts layout={layout} products={currentData} />
+                <ShopProducts layout={layout} products={currentData} petOrProduct={petOrProduct} />
 
                 {/* shop product pagination */}
                 <div className="pro-pagination-style text-center mt-30">
@@ -109,10 +141,17 @@ ShopProductPage.propTypes = {
   products: PropTypes.array,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    products: state.productData.products,
-  };
-};
-
-export default connect(mapStateToProps)(ShopProductPage);
+// const mapStateToProps = (state) => {
+//   return {
+//     products: state.productData.products,
+//   };
+// };
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     productDispatch: (pathname) => {
+//       dispatch(fetchProducts(pathname));
+//     },
+//   };
+// };
+export default multilanguage(ShopProductPage);
+// export default connect(mapStateToProps, mapDispatchToProps)(ShopProductPage);

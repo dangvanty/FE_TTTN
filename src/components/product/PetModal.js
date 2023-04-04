@@ -1,14 +1,15 @@
+import { fCurrency } from '#/helper/formatNumber';
 import PropTypes from 'prop-types';
 import React, { Fragment, useRef } from 'react';
 import { Accordion, Card, Modal } from 'react-bootstrap';
-function PetModal(props) {
-  const { product } = props;
+import { connect } from 'react-redux';
+function PetModal({ product, show, onHide, currency }) {
   const imgActiveEl = useRef(null);
   const listImgEl = useRef(null);
 
   return (
     <Fragment>
-      <Modal show={props.show} onHide={props.onHide} className="product-quickview-modal-wrapper">
+      <Modal show={show} onHide={onHide} className="product-quickview-modal-wrapper">
         <Modal.Header closeButton></Modal.Header>
         <div className="modal-body">
           <div className="row">
@@ -19,15 +20,16 @@ function PetModal(props) {
                     <img src={product?.avatar} alt="" ref={imgActiveEl} />
                   </div>
                   <div className="list-img" ref={listImgEl}>
-                    {product.image &&
-                      product.image?.map((ok, index) => (
+                    {product?.imgpet &&
+                      product?.imgpet?.map((ok, index) => (
                         <div className="img" key={index}>
                           <img
-                            src={ok}
+                            src={ok.link}
                             alt=""
                             onClick={() => {
-                              imgActiveEl.current.setAttribute('src', ok);
+                              imgActiveEl.current.setAttribute('src', ok.link);
                             }}
+                            style={{ cursor: 'pointer' }}
                           />
                         </div>
                       ))}
@@ -37,15 +39,19 @@ function PetModal(props) {
             </div>
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
-                <h2 className="pet-name">{product.name}</h2>
+                <h2 className="pet-name">{product?.name}</h2>
                 <h3>
-                  Giá: <span className="text-danger">{product.price}</span>
+                  Giá:{' '}
+                  <span className="text-danger">
+                    {fCurrency(product?.price * currency.currencyRate)}
+                    {' ' + currency.currencySymbol}
+                  </span>
                 </h3>
                 <h3>
-                  Loại thú cưng: <span className="text-danger">{product.category}</span>
+                  Loại thú cưng: <span className="text-danger">{product?.type}</span>
                 </h3>
                 <div className="pro-details-list">
-                  <h3 style={{ marginTop: '30px' }}>Mô tả: </h3> <p>{product.shortDescription}</p>
+                  <h3 style={{ marginTop: '30px' }}>Mô tả: </h3> <p>{product?.description}</p>
                 </div>
               </div>
             </div>
@@ -61,7 +67,7 @@ function PetModal(props) {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <div className="hot-content-info-wrapper">
-                      <div dangerouslySetInnerHTML={{ __html: product.text }} />
+                      <div dangerouslySetInnerHTML={{ __html: product?.text }} />
                     </div>
                   </Card.Body>
                 </Accordion.Collapse>

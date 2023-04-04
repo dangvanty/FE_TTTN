@@ -14,12 +14,12 @@ import Select from 'react-select';
 import { useState } from 'react';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-const data = [
-  { value: 1, label: 'gà' },
-  { value: 2, label: 'chó' },
-  { value: 3, label: 'bò' },
-];
-function RegisterService({ strings }) {
+import { dataTypePet } from '#/constants/constants';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import axiosClient from '#/helper/axiosClient';
+import { useToasts } from 'react-toast-notifications';
+function RegisterService({ services, strings }) {
   const { pathname } = useLocation();
   const {
     register,
@@ -27,8 +27,63 @@ function RegisterService({ strings }) {
     reset,
     formState: { errors },
   } = useForm();
-  const [serviceDefault, setServiceDefault] = useState(null);
+  // const [services, setServices] = useState(null);
   const [date, setDate] = useState(new Date());
+  const [weights, setWeight] = useState(null);
+  useEffect(() => {
+    axiosClient.get('/weights').then((res) => {
+      setWeight(res.data.rows);
+    });
+  }, []);
+  const dataServices = services.map((service) => {
+    return { value: service.name, label: service.name };
+  });
+  const dataWeight = weights?.map((weight) => {
+    return { value: weight.weight, label: weight.weight };
+  });
+
+  const [typeService, setTypeService] = useState('Dịch vụ khám định kỳ');
+  const [typeWeight, setTypeWeight] = useState('trên 20kg');
+  const [typePet, setTypePet] = useState('chó');
+  const onchangeTypePet = (e) => {
+    setTypePet(e.label);
+  };
+  const onchangeTypeService = (e) => {
+    setTypeService(e.label);
+  };
+  const onchangeWeight = (e) => {
+    setTypeWeight(e.label);
+  };
+  const { addToast } = useToasts();
+  const onSubmit = (data) => {
+    axiosClient
+      .get('/users/me')
+      .then((res) => {
+        axiosClient
+          .post('/schedules', {
+            userId: res.user.id,
+            name: data.name,
+            email: data.email,
+            address: data.address,
+            note: data.note,
+            phone: data.phone,
+            typePet,
+            typeService,
+            typeWeight,
+            date,
+          })
+          .then(() => {
+            reset();
+            addToast('Gửi yêu cầu thành công! Cửa hàng sẽ liên hệ lại với bạn!', {
+              appearance: 'success',
+              autoDismiss: false,
+            });
+          });
+      })
+      .catch(() => {
+        addToast('Bạn cần đăng nhập để gửi yêu cầu!', { appearance: 'info', autoDismiss: false });
+      });
+  };
   return (
     <Fragment>
       <MetaTags>
@@ -46,7 +101,7 @@ function RegisterService({ strings }) {
                 <SectionTitle titleText={strings['register_service']} positionClass="text-center" />
               </div>
               <div className="form">
-                <form onSubmit={handleSubmit((data) => console.log(data))}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="input-admin">
                     <label htmlFor="">{strings['your_name']}</label>
                     <input
@@ -67,10 +122,8 @@ function RegisterService({ strings }) {
                       type="text"
                       {...register('phone', {
                         required: strings['put_something_here'],
-                        pattern: {
-                          value: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
-                          message: strings['not_valid_phone'],
-                        },
+                        maxLength: { value: 10, message: strings['not_valid_phone'] },
+                        minLength: { value: 10, message: strings['not_valid_phone'] },
                       })}
                     />
                     {errors.phone && <span className="text-danger">{errors.phone.message}</span>}
@@ -119,8 +172,9 @@ function RegisterService({ strings }) {
                       <Select
                         closeMenuOnSelect={false}
                         // onChange={onchangeTypePet}
-                        defaultValue={[{ value: 'chó', label: 'chó' }]}
-                        options={[{ value: 'chó', label: 'chó' }]}
+                        defaultValue={dataServices[0]}
+                        options={dataServices}
+                        onChange={onchangeTypeService}
                       />
                     </div>
                     <div className="input-admin col-lg-6 col-md-12">
@@ -129,7 +183,8 @@ function RegisterService({ strings }) {
                         closeMenuOnSelect={false}
                         // onChange={onchangeTypePet}
                         defaultValue={[{ value: 'chó', label: 'chó' }]}
-                        options={[{ value: 'chó', label: 'chó' }]}
+                        options={dataTypePet}
+                        onChange={onchangeTypePet}
                       />
                     </div>
                   </div>
@@ -138,9 +193,9 @@ function RegisterService({ strings }) {
                       <label htmlFor="">{strings['type_weight']}</label>
                       <Select
                         closeMenuOnSelect={false}
-                        // onChange={onchangeWeight}
+                        onChange={onchangeWeight}
                         defaultValue={[{ value: 1, label: '15kg - 20kg' }]}
-                        options={[{ value: 1, label: '15kg - 20kg' }]}
+                        options={dataWeight}
                       />
                     </div>
                     <div className="input-admin col-lg-6 col-md-12">
@@ -193,5 +248,9 @@ function RegisterService({ strings }) {
 RegisterService.prototype = {
   strings: PropTypes.object,
 };
-
-export default multilanguage(RegisterService);
+const mapStateToProps = (state) => {
+  return {
+    services: state.serviceData,
+  };
+};
+export default connect(mapStateToProps)(multilanguage(RegisterService));

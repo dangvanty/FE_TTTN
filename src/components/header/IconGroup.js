@@ -5,7 +5,22 @@ import { connect } from 'react-redux';
 import MenuCart from './sub-components/MenuCart';
 import { removeFromCart } from '#/redux/action/cartActions';
 import { multilanguage } from 'redux-multilanguage';
-const IconGroup = ({ strings, currency, cartData, wishlistData, removeFromCart, iconWhiteClass }) => {
+import { useEffect } from 'react';
+import axiosClient from '#/helper/axiosClient';
+import { useState } from 'react';
+
+const testAvt =
+  'https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/04/Anh-avatar-dep-anh-dai-dien-FB-Tiktok-Zalo.jpg?ssl=1';
+const IconGroup = ({
+  user,
+  handleLogout,
+  strings,
+  currency,
+  cartData,
+  wishlistData,
+  removeFromCart,
+  iconWhiteClass,
+}) => {
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle('active');
   };
@@ -19,13 +34,33 @@ const IconGroup = ({ strings, currency, cartData, wishlistData, removeFromCart, 
     <div className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ''}`}>
       <div className="same-style account-setting d-lg-block">
         <button className="account-setting-active" onClick={(e) => handleClick(e)}>
-          <i className="pe-7s-user-female" />
+          {user ? (
+            user?.avatar ? (
+              // eslint-disable-next-line jsx-a11y/alt-text
+              <img src={user.avatar} width="30" style={{ borderRadius: '50%', marginTop: '-5px' }} />
+            ) : (
+              <img src="/assets/img/avt.jpg" width="30" style={{ borderRadius: '50%', marginTop: '-5px' }} />
+            )
+          ) : (
+            <img src="/assets/img/avt.jpg" width="30" style={{ borderRadius: '50%', marginTop: '-5px' }} />
+          )}
         </button>
         <div className="account-dropdown">
           <ul>
-            <li>
-              <Link to={'/login-register'}>{strings['Login_Register']}</Link>
-            </li>
+            {!user ? (
+              <li>
+                <Link to={'/login-register'}>{strings['Login_Register']}</Link>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link to={'/my-account'}>{strings['your_profile']}</Link>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>{strings['Logout']}</button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
@@ -59,6 +94,8 @@ const IconGroup = ({ strings, currency, cartData, wishlistData, removeFromCart, 
 };
 
 IconGroup.propTypes = {
+  user: PropTypes.object,
+  handleLogout: PropTypes.func,
   strings: PropTypes.object,
   cartData: PropTypes.array,
   currency: PropTypes.object,

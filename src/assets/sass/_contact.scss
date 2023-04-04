@@ -1,7 +1,6 @@
 /*------ 22. contact Page  ------*/
 
 .contact-map {
-  margin-top: 50px;
   height: 560px;
   position: relative;
   @media #{$xs-layout} {
@@ -91,7 +90,7 @@
 
 .contact-form {
   background-color: #f3f3f3;
-  padding: 50px 110px 50px 110px;
+  padding: 50px;
   @media #{$lg-layout} {
     padding: 50px 50px 50px 50px;
   }

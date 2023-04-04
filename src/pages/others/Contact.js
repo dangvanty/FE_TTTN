@@ -53,8 +53,8 @@ const Contact = ({ strings }) => {
         <div className="contact-area pt-50 pb-100">
           <div className="container">
             <SectionTitle titleText={strings['CONTACT_WITH_US!']} positionClass="text-center" />
-            <div className="custom-row-2">
-              <div className="col-lg-4 col-md-5">
+            <div className="custom-row-2 justify-content-center">
+              {/* <div className="col-lg-4 col-md-5">
                 <div className="contact-info-wrap">
                   <div className="single-contact-info">
                     <div className="contact-icon">
@@ -118,8 +118,11 @@ const Contact = ({ strings }) => {
                     </ul>
                   </div>
                 </div>
+              </div> */}
+              <div className="col-lg-6 col-md-12 contact-map ">
+                <LocationMap latitude={locationmap_cts.LATITUDE} longitude={locationmap_cts.LONGITUDE} />
               </div>
-              <div className="col-lg-8 col-md-7">
+              <div className="col-lg-6 col-md-12">
                 <div className="contact-form">
                   <div className="contact-title mb-30">
                     <h2>{strings['Get_In_Touch']}</h2>
@@ -191,10 +194,7 @@ const Contact = ({ strings }) => {
                 </div>
               </div>
             </div>
-            <SectionTitle titleText={strings['MY_STORE_ADDRESS!']} positionClass="text-center" />
-            <div className="contact-map mb-10">
-              <LocationMap latitude={locationmap_cts.LATITUDE} longitude={locationmap_cts.LONGITUDE} />
-            </div>
+            {/* <SectionTitle titleText={strings['MY_STORE_ADDRESS!']} positionClass="text-center" /> */}
           </div>
         </div>
       </LayoutOne>

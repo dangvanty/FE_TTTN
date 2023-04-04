@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import React from 'react';
 import { setActiveSort } from '#/helper/product';
 
@@ -13,7 +13,7 @@ const ShopCategories = ({ categories, getSortParams }) => {
               <div className="sidebar-widget-list-left">
                 <button
                   onClick={(e) => {
-                    getSortParams('category', '');
+                    typeof categories[0] === 'object' ? getSortParams('category', '') : getSortParams('typePet', '');
                     setActiveSort(e);
                   }}
                 >
@@ -27,12 +27,12 @@ const ShopCategories = ({ categories, getSortParams }) => {
                   <div className="sidebar-widget-list-left">
                     <button
                       onClick={(e) => {
-                        getSortParams('category', category);
+                        category.id ? getSortParams('category', category?.name) : getSortParams('typePet', category);
                         setActiveSort(e);
                       }}
                     >
                       {' '}
-                      <span className="checkmark" /> {category}{' '}
+                      <span className="checkmark" /> {category.id ? category?.name : category}{' '}
                     </button>
                   </div>
                 </li>

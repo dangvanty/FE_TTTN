@@ -1,12 +1,13 @@
 import React from 'react';
+import { multilanguage } from 'redux-multilanguage';
 
-const ShopSearch = () => {
+const ShopSearch = ({ strings, getSearch }) => {
   return (
     <div className="sidebar-widget">
-      <h4 className="pro-sidebar-title">Search </h4>
+      <h4 className="pro-sidebar-title">{strings['search']} </h4>
       <div className="pro-sidebar-search mb-50 mt-25">
-        <form className="pro-sidebar-search-form" action="#">
-          <input type="text" placeholder="Search here..." />
+        <form className="pro-sidebar-search-form" action="#" onSubmit={(e) => e.preventDefault()}>
+          <input type="text" placeholder="Search here..." onChange={(e) => getSearch(e.target.value)} />
           <button>
             <i className="pe-7s-search" />
           </button>
@@ -16,4 +17,4 @@ const ShopSearch = () => {
   );
 };
 
-export default ShopSearch;
+export default multilanguage(ShopSearch);

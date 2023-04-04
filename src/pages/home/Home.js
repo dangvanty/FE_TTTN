@@ -19,7 +19,7 @@ const Home = () => {
         <HeroSliderOne />
         <Banner spaceTopClass="pt-100" spaceBottomClass="pb-80" />
         <ServiceSlider />
-        <TabProductHome category="pet food" />
+        <TabProductHome />
         <Comment />
         <BlogFeatured spaceBottomClass="pb-55" />
       </LayoutOne>

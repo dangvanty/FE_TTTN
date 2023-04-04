@@ -16,7 +16,7 @@ const cartReducer = (state = initState, action) => {
           ...cartItems,
           {
             ...product,
-            quantity: product.quantity ? product.quantity : 1,
+            stock: product.stock ? product.stock : 1,
             cartItemId: v4(),
           },
         ];
@@ -25,7 +25,7 @@ const cartReducer = (state = initState, action) => {
           item.cartItemId === cartItem.cartItemId
             ? {
                 ...item,
-                quantity: product.quantity ? item.quantity + product.quantity : item.quantity + 1,
+                stock: product.quantity ? item.stock + product.stock : item.stock + 1,
               }
             : item,
         );
@@ -35,10 +35,10 @@ const cartReducer = (state = initState, action) => {
       const cartItem = cartItems.filter(
         (item) =>
           item.id === product.id &&
-          product.selectedProductColor &&
-          product.selectedProductColor === item.selectedProductColor &&
-          product.selectedProductSize &&
-          product.selectedProductSize === item.selectedProductSize &&
+          product?.selectedProductColor &&
+          product?.selectedProductColor === item?.selectedProductColor &&
+          product?.selectedProductSize &&
+          product?.selectedProductSize === item?.selectedProductSize &&
           (product.cartItemId ? product.cartItemId === item.cartItemId : true),
       )[0];
 
@@ -47,7 +47,7 @@ const cartReducer = (state = initState, action) => {
           ...cartItems,
           {
             ...product,
-            quantity: product.quantity ? product.quantity : 1,
+            stock: product.stock ? product.stock : 1,
             cartItemId: v4(),
           },
         ];
@@ -60,7 +60,7 @@ const cartReducer = (state = initState, action) => {
           ...cartItems,
           {
             ...product,
-            quantity: product.quantity ? product.quantity : 1,
+            stock: product.stock ? product.stock : 1,
             cartItemId: v4(),
           },
         ];
@@ -69,7 +69,7 @@ const cartReducer = (state = initState, action) => {
           item.cartItemId === cartItem.cartItemId
             ? {
                 ...item,
-                quantity: product.quantity ? item.quantity + product.quantity : item.quantity + 1,
+                stock: product.stock ? item.stock + product.stock : item.stock + 1,
                 selectedProductColor: product.selectedProductColor,
                 selectedProductSize: product.selectedProductSize,
               }
@@ -80,7 +80,7 @@ const cartReducer = (state = initState, action) => {
   }
 
   if (action.type === DECREASE_QUANTITY) {
-    if (product.quantity === 1) {
+    if (product.stock === 1) {
       const remainingItems = (cartItems, product) =>
         cartItems.filter((cartItem) => cartItem.cartItemId !== product.cartItemId);
       return remainingItems(cartItems, product);

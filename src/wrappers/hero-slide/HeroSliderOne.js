@@ -13,7 +13,9 @@ import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { loadGalleries } from '#/redux/action/galleriesAction';
+
 const HeroSliderOne = ({ galleries, galleriesDispatch }) => {
+  // console.log('::::', galleries);
   useEffect(() => {
     galleriesDispatch();
   }, []);
@@ -34,9 +36,9 @@ const HeroSliderOne = ({ galleries, galleriesDispatch }) => {
               <SwiperSlide key={item.id}>
                 <div className="Slide-galleries">
                   <img src={item.link} />
-                  <div className="Slide-galleries-content">
+                  {/* <div className="Slide-galleries-content">
                     <h2>{item.name}</h2>
-                  </div>
+                  </div> */}
                 </div>
               </SwiperSlide>
             );

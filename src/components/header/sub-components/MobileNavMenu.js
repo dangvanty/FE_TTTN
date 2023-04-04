@@ -14,29 +14,18 @@ const MobileNavMenu = ({ strings }) => {
           <Link to={'/register-service'}>{strings['register_service']}</Link>
         </li>
         <li className="menu-item-has-children">
-          <Link to={'/shop'}>{strings['shop']}</Link>
+          <Link to={'/products'}>{strings['shop']}</Link>
           <ul className="sub-menu">
             <li>
-              <Link to={'/shop/product'}>{strings['shop_product']}</Link>
+              <Link to={'/products'}>{strings['shop_product']}</Link>
             </li>
             <li>
-              <Link to={'/shop/pet'}>{strings['shop_pet']}</Link>
+              <Link to={'/pets'}>{strings['shop_pet']}</Link>
             </li>
           </ul>
         </li>
         <li className="menu-item-has-children">
           <Link to={'/blog'}>{strings['blog']}</Link>
-          <ul className="sub-menu">
-            <li>
-              <Link to={'/blog/service'}>{strings['blog_service']}</Link>
-            </li>
-            <li>
-              <Link to={'/blog/product'}>{strings['blog_product']}</Link>
-            </li>
-            <li>
-              <Link to={'/blog/pet'}>{strings['blog_pet']}</Link>
-            </li>
-          </ul>
         </li>
         <li>
           <Link to={'/about'}>{strings['about_us']}</Link>

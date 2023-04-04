@@ -13,7 +13,7 @@ const Notfound = ({ strings }) => {
       <div className="notfound">
         <MetaTags>
           <title>{strings['notfound_title']}</title>
-          <meta name="description" content="Contact of flone react minimalist eCommerce template." />
+          <meta name="description" content="Contact of PetServices react minimalist eCommerce template." />
         </MetaTags>
         <aside>
           <img src={src_img.NOTFOUND} alt="404 Image" />

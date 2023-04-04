@@ -14,12 +14,14 @@ const ProductGrid = ({
   wishlistItems,
   sliderClassName,
   spaceBottomClass,
+  petOrProduct,
 }) => {
   return (
     <Fragment>
       {products.map((product) => {
         return (
           <ProductGridListSingle
+            petOrProduct={petOrProduct}
             sliderClassName={sliderClassName}
             spaceBottomClass={spaceBottomClass}
             product={product}

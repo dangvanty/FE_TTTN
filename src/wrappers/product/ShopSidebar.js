@@ -5,20 +5,21 @@ import ShopSearch from '#/components/product/ShopSearch';
 import ShopCategories from '#/components/product/ShopCategories';
 import ShopTag from '#/components/product/ShopTag';
 
-const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
+const ShopSidebar = ({ getSearch, products, getSortParams, sideSpaceClass }) => {
   const uniqueCategories = getUniqueCategories(products);
-  const uniqueTags = getUniqueTags(products);
+  console.log('uniqueCate:::', uniqueCategories);
+  // const uniqueTags = getUniqueTags(products);
 
   return (
     <div className={`sidebar-style ${sideSpaceClass ? sideSpaceClass : ''}`}>
       {/* shop search */}
-      <ShopSearch />
+      <ShopSearch getSearch={getSearch} />
 
       {/* filter by categories */}
       <ShopCategories categories={uniqueCategories} getSortParams={getSortParams} />
 
       {/* filter by tag */}
-      <ShopTag tags={uniqueTags} getSortParams={getSortParams} />
+      {/* <ShopTag tags={uniqueTags} getSortParams={getSortParams} /> */}
     </div>
   );
 };

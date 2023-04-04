@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
 function ServiceSlider({ strings, services, servicesDispatch }) {
+  // console.log('::::::service', services);
   useEffect(() => {
     servicesDispatch();
   }, []);

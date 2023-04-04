@@ -5,8 +5,21 @@ import Select from 'react-select';
 import { camera } from '#/assets/svg/IconSvg';
 import Mutil from '../Multi/Mutil';
 import { dataTypePet } from '#/constants/constants';
+import axiosClient from '#/helper/axiosClient';
+import { useToasts } from 'react-toast-notifications';
+import { storage } from '#/helper/firebase';
+import { useNavigate } from 'react-router-dom';
 // import Mutil from '../Multi/Mutil';
-
+const initState = {
+  linkImgPet: '',
+  nameImgPet: '',
+  imgPet: '',
+  imgIdPet: '',
+  mutilImgPet: '',
+  userId: '',
+  load: false,
+  type: 'khác',
+};
 export default function CreatePet() {
   const {
     register,
@@ -14,21 +27,22 @@ export default function CreatePet() {
     reset,
     formState: { errors },
   } = useForm();
-  const [state, setState] = useState({
-    linkImgPet: '',
-    nameImgPet: '',
-    imgPet: '',
-    imgIdPet: '',
-    mutilImgPet: '',
-    userId: '',
-    load: false,
-    type: '',
-  });
+  const navigate = useNavigate();
+  const [state, setState] = useState(initState);
   const { linkImgPet, nameImgPet, mutilImgPet, imgPet, imgIdPet, userId, type, load } = state;
   const [text, setText] = useState(null);
   const hangdleMutilImg = (e) => {
     setState({ ...state, mutilImgPet: e });
   };
+  useEffect(() => {
+    axiosClient
+      .get('/users/me')
+      .then((res) => {
+        setState({ ...state, userId: res.user.id });
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   const hangdelimagePet = (e) => {
     setState({
       ...state,
@@ -38,10 +52,66 @@ export default function CreatePet() {
     });
   };
 
+  const onchangeType = (e) => {
+    setState({ ...state, type: e.value });
+  };
+
+  const { addToast } = useToasts();
+
+  const onSubmit = async (data) => {
+    setState({ ...state, load: !load });
+    addToast('Vui lòng đợi!', {
+      appearance: 'info',
+      autoDismiss: false,
+    });
+    await storage.ref(`imagesPet/${imgPet.name}`).put(imgPet);
+    const anh = await storage.ref('imagesPet').child(imgPet.name).getDownloadURL();
+    var imgpet = [];
+    for (let i = 0; i < mutilImgPet.length; i++) {
+      await storage.ref(`imagesPet/${mutilImgPet[i].name}`).put(mutilImgPet[i]);
+      var imgPets = await storage.ref('imagesPet').child(mutilImgPet[i].name).getDownloadURL();
+      imgpet.push({ link: imgPets });
+    }
+    console.log('he', {
+      name: data.name,
+      price: data.price,
+      description: data.description,
+      text: text,
+      avatar: anh,
+      type: type,
+      userId: userId,
+      imgpet,
+      status: 0,
+    });
+    axiosClient
+      .post(`/pets`, {
+        name: data.name,
+        price: data.price,
+        quantity: data.quantity,
+        description: data.description,
+        text: text,
+        avatar: anh,
+        type: type,
+        userId: userId,
+        imgpet,
+        checkAdmin: 1,
+        status: 0,
+      })
+      .then((ok) => {
+        console.log(':::::ok', ok);
+        addToast('Gửi yêu cầu bán thú thành công!', {
+          appearance: 'success',
+          autoDismiss: false,
+        });
+        window.location.reload();
+      })
+      .catch((error) => console.log(error.message));
+  };
+
   return (
     <div className="tab-pane">
       <div className="CreateAdmin">
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="input-admin">
             <label htmlFor="">Ảnh đại diện</label>
             <div className="update">
@@ -109,7 +179,7 @@ export default function CreatePet() {
                 style={{ resize: 'auto' }}
                 {...register('description', {
                   required: 'Không được bỏ trống!',
-                  maxLength: { value: 1000, message: 'Vượt quá ký tự cho phép' },
+                  maxLength: { value: 255, message: 'Vượt quá ký tự cho phép' },
                 })}
               ></textarea>
 
@@ -117,15 +187,15 @@ export default function CreatePet() {
             </div>
             <div className="col-4 input-admin">
               <label htmlFor="">Loại thú cưng</label>
-              <Select closeMenuOnSelect={false} options={dataTypePet} />
+              <Select closeMenuOnSelect={false} options={dataTypePet} onChange={onchangeType} />
             </div>
           </div>
           <div className="input-admin">
             <label htmlFor="">Điểm nổi bật</label>
-            <JoditEditor value={text} tabIndex={1} onChange={(e) => setText(e)} />
+            <JoditEditor tabIndex={1} onChange={(e) => setText(e)} />
           </div>
           <div className="col-md-4 col-sm-12 btn_submit">
-            <input type="submit" value="Hoàn thành" style={{ cursor: 'pointer' }} />
+            <input type="submit" disabled={load} value="Hoàn thành" style={{ cursor: 'pointer' }} />
           </div>
         </form>
       </div>

@@ -43,3 +43,79 @@ export const bannerHome = {
   PET: 'https://firebasestorage.googleapis.com/v0/b/totnghiep-d2829.appspot.com/o/imageContanst%2Fbanner-pet.jpg?alt=media&token=505353d2-1c27-4d55-8207-27e40763bdd6',
   SHOP: 'https://firebasestorage.googleapis.com/v0/b/totnghiep-d2829.appspot.com/o/imageContanst%2Fbanner-shop.jpg?alt=media&token=4a8104e3-8816-4633-a72b-c7a5c2de3fff',
 };
+
+export const districtData = {
+  daNang: [
+    '-----',
+    'Quận Liên Chiểu',
+    'Quận Thanh Khê',
+    'Quận Hải Châu',
+    'Quận Sơn Trà',
+    'Quận Ngũ Hành Sơn',
+    'Quận Cẩm Lệ',
+    'Huyện Hòa Vang',
+    'Huyện Hoàng Sa',
+  ],
+  quangNam: [
+    '-----',
+    'Thành phố Tam Kỳ',
+    'Thành phố Hội An',
+    'Huyện Tây Giang',
+    'Huyện Đông Giang',
+    'Huyện Đại Lộc',
+    'Thị xã Điện Bàn',
+    'Huyện Duy Xuyên',
+    'Huyện Quế Sơn',
+    'Huyện Nam Giang',
+    'Huyện Phước Sơn',
+    'Huyện Hiệp Đức',
+    'Huyện Thăng Bình',
+    'Huyện Tiên Phước',
+    'Huyện Bắc Trà My',
+    'Huyện Nam Trà My',
+    'Huyện Núi Thành',
+    'Huyện Phú Ninh',
+    'Huyện Nông Sơn',
+  ],
+};
+
+export const Currencys = [
+  { id: 1, value: 'en', label: 'English' },
+  { id: 2, value: 'vi', label: 'Việt Nam' },
+];
+
+export const BANNER = [
+  {
+    id: 1,
+    image: 'https://petstoresaigon.com/wp-content/uploads/2022/10/Banner-Pet-3-05.jpg',
+    link: '/pets',
+  },
+  {
+    id: 2,
+    image: 'https://petstoresaigon.com/wp-content/uploads/2022/10/Banner-Pet-3-04.jpg',
+    link: '/products',
+  },
+  {
+    id: 3,
+    image: 'https://petstoresaigon.com/wp-content/uploads/2022/10/Banner-Pet-3-06.jpg',
+    link: '/register-service',
+  },
+];
+
+export const MISSION_GOAL = [
+  {
+    id: '1',
+    title: 'Our Vision',
+    text: 'Flone provide how all this mistaken idea of denounc pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth.',
+  },
+  {
+    id: '2',
+    title: 'Our Mission',
+    text: 'Flone provide how all this mistaken idea of denounc pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth.',
+  },
+  {
+    id: '3',
+    title: 'Our Goal',
+    text: 'Flone provide how all this mistaken idea of denounc pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs the eat explorer of the truth.',
+  },
+];

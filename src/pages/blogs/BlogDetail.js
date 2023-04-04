@@ -6,19 +6,68 @@ import LayoutOne from '#/layouts/LayoutOne';
 import Breadcrumb from '#/wrappers/breadcrumb/Breadcrumb';
 import BlogSidebar from '#/wrappers/blog/BlogSidebar';
 import BlogPost from '#/wrappers/blog/BlogPost';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { multilanguage } from 'redux-multilanguage';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axiosClient from '#/helper/axiosClient';
+import { to_slug } from '#/helper/formatToSlug';
 
-const BlogDetailsStandard = () => {
+const BlogDetailsStandard = ({ strings }) => {
   const { pathname } = useLocation();
+  const { slug, id } = useParams();
+  const getSearch = (value) => {
+    // console.log('valueSeach', value);
+  };
+  const [prevBlog, setPrevBlog] = useState(null);
+  const [nextBlog, setNextBlog] = useState(null);
+  const [blog, setBlog] = useState(null);
+  const navigate = useNavigate();
 
+  const clickPrev = async () => {
+    // await axiosClient.get(`/news/${blog?.id - 1}`).then((res) => {
+    //   setPrevBlog(res.data);
+    // });
+    // if (prevBlog === null) {
+    //   setPrevBlog(blog);
+    // }
+    // console.log({ prevBlog, blog });
+    navigate(`/blog/${to_slug(prevBlog?.name)}.${prevBlog?.id}.html`);
+  };
+
+  const clickNext = async () => {
+    // await axiosClient.get(`/news/${blog?.id + 1}`).then((res) => {
+    //   setNextBlog(res.data);
+    // });
+    // if (!nextBlog) {
+    //   setNextBlog(blog);
+    // }
+
+    navigate(`/blog/${to_slug(nextBlog?.name)}.${nextBlog?.id}.html`);
+  };
+
+  useEffect(() => {
+    axiosClient.get(`/news/${id}`).then((res) => {
+      setBlog(res.data);
+    });
+
+    axiosClient.get(`/news/${id - 1}`).then((res) => {
+      setPrevBlog(res.data);
+    });
+
+    axiosClient.get(`/news/${id + 1}`).then((res) => {
+      setNextBlog(res.data);
+    });
+  }, [navigate]);
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Blog Post</title>
-        <meta name="description" content="Blog post page of flone react minimalist eCommerce template." />
+        <title>PetServices | Blog Post</title>
+        <meta name="description" content="Blog post page of PetServices react minimalist eCommerce template." />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Blog Post</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/'}>{strings['home']}</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/blog'}>Blog</BreadcrumbsItem>
+      <BreadcrumbsItem to={pathname}>{blog?.name}</BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
@@ -28,12 +77,18 @@ const BlogDetailsStandard = () => {
               <div className="col-lg-9">
                 <div className="blog-details-wrapper ml-20">
                   {/* blog post */}
-                  <BlogPost />
+                  <BlogPost
+                    blog={blog}
+                    clickPrev={clickPrev}
+                    clickNext={clickNext}
+                    next={nextBlog ?? 1}
+                    prev={prevBlog ?? 1}
+                  />
                 </div>
               </div>
               <div className="col-lg-3">
                 {/* blog sidebar */}
-                <BlogSidebar />
+                <BlogSidebar getSearch={getSearch} />
               </div>
             </div>
           </div>
@@ -47,4 +102,4 @@ BlogDetailsStandard.propTypes = {
   location: PropTypes.object,
 };
 
-export default BlogDetailsStandard;
+export default multilanguage(BlogDetailsStandard);

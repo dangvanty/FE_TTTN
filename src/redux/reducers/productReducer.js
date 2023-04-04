@@ -7,7 +7,6 @@ const initState = {
 const productReducer = (state = initState, action) => {
   if (action.type === FETCH_PRODUCTS_SUCCESS) {
     return {
-      ...state,
       products: action.payload,
     };
   }

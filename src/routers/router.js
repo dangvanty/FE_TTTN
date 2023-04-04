@@ -5,7 +5,8 @@ import ScrollToTop from '#/helper/ScrollTop';
 import { multilanguage, loadLanguages } from 'redux-multilanguage';
 import { connect } from 'react-redux';
 import { BreadcrumbsProvider } from 'react-breadcrumbs-dynamic';
-
+import { CheckLogin, Protect } from './protectRoute';
+import SellPet from '#/pages/InforUser/SellPet';
 // home pages
 
 const Home = lazy(() => {
@@ -25,7 +26,7 @@ const Notfound = lazy(() => {
 });
 const ShopProductPage = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('#/pages/shop/ShopProduct')), 500);
+    setTimeout(() => resolve(import('#/pages/shop/ShopProductPage')), 500);
   });
 });
 const About = lazy(() => {
@@ -105,18 +106,26 @@ const App = (props) => {
             }
           >
             <Routes>
+              <Route element={<CheckLogin />}>
+                <Route exact path="/login-register" element={<LoginRegister />} />
+              </Route>
+              <Route element={<Protect />}>
+                <Route exact path="/sell-your-pet" element={<SellPet />} />
+                <Route path={'/my-account'} element={<InforUser />} />
+              </Route>
               <Route exact path={'/'} element={<Home />} />
-              <Route exact path={'/login-register'} element={<LoginRegister />} />
               <Route path={'/contact'} element={<Contact />} />
-              <Route path={'/shop'} element={<ShopProductPage />} />
-              <Route path={'/shop/product-detail'} element={<ProductDetail />} />
+              <Route path={'/products/:slug.:id.html'} element={<ProductDetail />} />
+              <Route path={'/products'} element={<ShopProductPage pathname1="product" />} />
+              <Route path={'/pets'} element={<ShopProductPage pathname1="pet" />} />
+              <Route path={'/pets/:slug.:id.html'} element={<ProductDetail />} />
+              {/* <Route path={'/shop/product-detail'} element={<ProductDetail />} /> */}
               <Route path={'/about'} element={<About />} />
               <Route path={'/cart'} element={<Cart />} />
               <Route path={'/checkout'} element={<Checkout />} />
               <Route path={'/wishlist'} element={<WishList />} />
-              <Route path={'/my-account'} element={<InforUser />} />
               <Route path={'/blog'} element={<BlogHome />} />
-              <Route path={'/blog-detail'} element={<BlogDetail />} />
+              <Route path={'/blog/:slug.:id.html'} element={<BlogDetail />} />
               <Route path={'/register-service'} element={<RegisterService />} />
               <Route path="*" element={<Notfound />} />
             </Routes>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { getDiscountPrice } from '#/helper/product';
 import { fCurrency } from '#/helper/formatNumber';
+import { to_slug } from '#/helper/formatToSlug';
 
 const ProductGridSingleFour = ({
   product,
@@ -17,8 +18,8 @@ const ProductGridSingleFour = ({
 }) => {
   const { addToast } = useToasts();
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  const discountedPrice = getDiscountPrice(product?.price, product?.discount);
+  const finalProductPrice = +(product?.price * currency.currencyRate).toFixed(2);
   const finalDiscountedPrice = +(discountedPrice * currency.currencyRate).toFixed(2);
 
   return (
@@ -26,17 +27,21 @@ const ProductGridSingleFour = ({
       <div className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 ${sliderClassName ? sliderClassName : ''}`}>
         <div className={`product-wrap-5 ${spaceBottomClass ? spaceBottomClass : ''}`}>
           <div className="product-img">
-            <Link to={'/product/' + product.id}>
-              <img className="default-img" src={product.image[0]} alt="" />
+            <Link
+              to={`/${typeof product.id === 'string' ? 'pets' : 'products'}/${to_slug(product?.name)}.${
+                typeof product.id === 'string' ? product.id.split('petpet')[0] : product.id
+              }.html`}
+            >
+              <img className="default-img" src={product?.avatar} alt="" />
             </Link>
-            {product.discount || product.new ? (
+            {/* {product.discount || product.new ? (
               <div className="product-img-badges">
                 {product.discount ? <span className="pink">-{product.discount}%</span> : ''}
                 {product.new ? <span className="purple">New</span> : ''}
               </div>
             ) : (
               ''
-            )}
+            )} */}
 
             <div className="product-action-4">
               <div className="pro-same-action pro-wishlist">
@@ -50,20 +55,11 @@ const ProductGridSingleFour = ({
                 </button>
               </div>
               <div className="pro-same-action pro-cart">
-                {product.affiliateLink ? (
-                  <a href={product.affiliateLink} rel="noopener noreferrer" target="_blank" title="Buy now">
-                    {' '}
-                    <i className="fa fa-shopping-cart"></i>{' '}
-                  </a>
-                ) : product.variation && product.variation.length >= 1 ? (
-                  <Link to={`/product/${product.id}`} title="Select options">
-                    <i class="fa fa-cog"></i>
-                  </Link>
-                ) : product.stock && product.stock > 0 ? (
+                {product?.quantity && product?.quantity > 0 ? (
                   <button
                     onClick={() => addToCart(product, addToast)}
-                    className={cartItem !== undefined && cartItem.quantity > 0 ? 'active' : ''}
-                    disabled={cartItem !== undefined && cartItem.quantity > 0}
+                    className={cartItem !== undefined && cartItem?.stock > 0 ? 'active' : ''}
+                    disabled={cartItem !== undefined && cartItem?.stock > 0}
                     title={cartItem !== undefined ? 'Added to cart' : 'Add to cart'}
                   >
                     {' '}
@@ -79,7 +75,11 @@ const ProductGridSingleFour = ({
           </div>
           <div className="product-content-5 text-center">
             <h3>
-              <Link to={'/product/' + product.id}>{product.name}</Link>
+              <Link
+                to={`/${typeof product.id === 'string' ? 'pets' : 'products'}/${to_slug(product?.name)}.${
+                  typeof product.id === 'string' ? product.id.split('petpet')[0] : product.id
+                }.html`}
+              ></Link>
             </h3>
             <div className="price-5">
               {discountedPrice !== null ? (

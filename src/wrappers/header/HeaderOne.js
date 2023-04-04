@@ -5,6 +5,8 @@ import NavMenu from '#/components/header/NavMenu';
 import IconGroup from '#/components/header/IconGroup';
 import MobileMenu from '#/components/header/MobileMenu';
 import HeaderTop from '#/components/header/HeaderTop';
+import axiosClient from '#/helper/axiosClient';
+import { useDispatch, useSelector } from 'react-redux';
 
 const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass, headerBgClass }) => {
   const [scroll, setScroll] = useState(0);
@@ -21,6 +23,27 @@ const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass, headerBgClass
 
   const handleScroll = () => {
     setScroll(window.scrollY);
+  };
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    axiosClient
+      .get('/users/me')
+      .then((res) => {
+        // console.log('res::::::', res);
+        setUser(res.user);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  const handleLogout = async () => {
+    axiosClient
+      .get(`/users/logout`)
+      .then((res) => {
+        localStorage.removeItem('tokenPet');
+        console.log(res);
+        setUser(null);
+        return;
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -49,11 +72,11 @@ const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass, headerBgClass
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}
-              <NavMenu />
+              <NavMenu user={user} />
             </div>
             <div className="col-xl-2 col-lg-2 col-md-6 col-8">
               {/* Icon group */}
-              <IconGroup />
+              <IconGroup handleLogout={handleLogout} user={user} />
             </div>
           </div>
         </div>

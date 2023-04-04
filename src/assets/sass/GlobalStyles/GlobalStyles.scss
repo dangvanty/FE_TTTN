@@ -50,3 +50,17 @@ body {
   font-family: $mainfont;
   color: #000;
 }
+
+.tabs {
+  margin: 0 100px;
+}
+
+.collapse.show {
+  .card-body {
+    overflow: hidden;
+    img {
+      width: auto;
+      max-height: 400px;
+    }
+  }
+}

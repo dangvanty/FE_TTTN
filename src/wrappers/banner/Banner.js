@@ -11,40 +11,38 @@ const Banner = ({ strings, spaceTopClass, spaceBottomClass }) => {
         <div className="row">
           <div className="col-lg-6 col-md-6">
             <div className="single-banner mb-20">
-              <Link to="/detail-policy">
+              <Link to="/register-service">
                 <img src={bannerHome.SHOP} alt="" />
               </Link>
               <div className="banner-content-4 banner-position-hm15-2 pink-banner">
-                <span>-20% Off</span>
-                <h2>My Store</h2>
-                <h5>Best for your pet</h5>
-                <Link to="/about">FIND DETAIL</Link>
+                <h2>{strings['service']}</h2>
+                <h5>{strings['best_for_pet']}</h5>
+                <Link to="/register-service">{strings['book_now']}</Link>
               </div>
             </div>
           </div>
           <div className="col-lg-6 col-md-6">
             <div className="single-banner mb-20">
-              <Link to="/shop-food-pet">
+              <Link to="/products">
                 <img src={bannerHome.FOOD_PET} alt="" />
               </Link>
               <div className="banner-content-3 banner-position-hm15-2 pink-banner">
-                <h3>Food for pet </h3>
-                <p>
-                  Starting At <span>$1.00</span>
-                </p>
+                <h3>{strings['product_for_pet']}</h3>
+                <p>{strings['cheap_and_quality']}</p>
                 <Link to="/shop-food-pet">
                   <i className="fa fa-long-arrow-right" />
                 </Link>
               </div>
             </div>
             <div className="single-banner mb-20">
-              <Link to="/shop-pet">
+              <Link to="/pet">
                 <img src={bannerHome.PET} alt="" />
               </Link>
               <div className="banner-content-3 banner-position-hm17-1 pink-banner">
-                <h3>Buy pet</h3>
+                <h3>{strings['buy_pet']}</h3>
                 <p>
-                  credibility<span>and quality</span>
+                  {strings['strongs']}
+                  <span>{strings['lovely']}</span>
                 </p>
                 <Link to="/shop-pet">
                   <i className="fa fa-long-arrow-right" />

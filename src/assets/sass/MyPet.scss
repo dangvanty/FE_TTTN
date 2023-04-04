@@ -4,7 +4,7 @@
   border-radius: 5px;
   position: relative;
   display: flex;
-  margin: 50px 0;
+  margin: 20px 0;
   .avatar {
     width: 200px;
     height: 250px;
@@ -19,7 +19,7 @@
     margin-left: 2rem;
     padding-top: 2rem;
     .text_name {
-      color: $colorOrange;
+      color: $theme-color;
       font-size: 1.5rem;
       font-weight: 600;
       margin-bottom: 1rem;
@@ -34,29 +34,32 @@
       color: $theme-color;
     }
   }
-  p.btn-delete {
+  p.btn-delete,
+  button.btn-delete {
     padding: 0.5rem 1rem;
     color: white;
-    background-color: $colorOrange;
-    border: 1px solid $colorOrange;
+    background-color: $theme-color;
+    border: 1px solid $theme-color;
     border-radius: 5px;
     position: absolute;
-    bottom: 5px;
+    bottom: 20px;
     right: 150px;
     cursor: pointer;
     transition: 0.2s;
     &:hover {
       background-color: white;
-      color: $colorOrange;
-      border: 1px solid $colorOrange;
+      color: $theme-color;
+      border: 1px solid $theme-color;
     }
   }
   p.btn-no,
+  button.btn-no,
+  button.btn-yes,
   p.btn-yes {
     background-color: white;
     padding: 0.5rem 1rem;
-    color: $colorOrange;
-    border: 1px solid $colorOrange;
+    color: $theme-color;
+    border: 1px solid $theme-color;
     border-radius: 5px;
     position: absolute;
     bottom: 20px;
@@ -65,18 +68,18 @@
     font-weight: 500;
     transition: 0.2s;
     &:hover {
-      background-color: $colorOrange;
+      background-color: $theme-color;
       color: white;
-      border: 1px solid $colorOrange;
+      border: 1px solid $theme-color;
     }
   }
   p.btn-yes {
-    background-color: $colorOrange;
+    background-color: $theme-color;
     color: white;
     &:hover {
       background-color: white;
-      color: $colorOrange;
-      border: 1px solid $colorOrange;
+      color: $theme-color;
+      border: 1px solid $theme-color;
     }
   }
   p.detail {

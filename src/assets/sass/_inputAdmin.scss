@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   margin: 0.5rem 0;
+  .input-radio {
+    width: 90px;
+    height: 30px;
+  }
   label {
     font-size: 1rem;
     margin-bottom: 0.5rem;
@@ -53,6 +57,7 @@
   .img-update {
     margin-top: 1rem;
     margin-bottom: 1rem;
+    object-fit: contain;
   }
 }
 .btn_submit {

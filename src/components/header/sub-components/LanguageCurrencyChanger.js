@@ -3,6 +3,7 @@ import React from 'react';
 import { changeLanguage } from 'redux-multilanguage';
 import { multilanguage } from 'redux-multilanguage';
 import { connect } from 'react-redux';
+import { Currencys } from '#/constants/constants';
 const LanguageCurrencyChanger = ({ strings, currency, changeCurrency, currentLanguageCode, dispatch }) => {
   const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
@@ -23,16 +24,13 @@ const LanguageCurrencyChanger = ({ strings, currency, changeCurrency, currentLan
         </span>
         <div className="lang-car-dropdown">
           <ul>
-            <li>
-              <button value="en" onClick={(e) => changeLanguageTrigger(e)}>
-                English
-              </button>
-            </li>
-            <li>
-              <button value="vi" onClick={(e) => changeLanguageTrigger(e)}>
-                Việt Nam
-              </button>
-            </li>
+            {Currencys?.map((currency) => (
+              <li key={currency.id}>
+                <button value={currency.value} onClick={(e) => changeLanguageTrigger(e)}>
+                  {currency.label}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

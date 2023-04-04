@@ -1,23 +1,42 @@
 import React from 'react';
 import '#/assets/sass/Information.scss';
-export default function Information() {
+import { multilanguage } from 'redux-multilanguage';
+function Information({ strings, user }) {
+  const getMale = (male) => {
+    switch (male) {
+      case 1:
+        return 'Nam';
+      case 0:
+        return 'Nữ';
+      case 2:
+        return 'Khác';
+      default:
+        break;
+    }
+  };
   return (
     <div className="tab-pane">
       <div className="information">
         <div className="avatar">
-          <img src="/assets/img/icon-img/logo.jpg" alt="" />
+          <img src={user?.avatar || '/assets/img/avt.jpg'} alt="" />
         </div>
         <div className="title">
-          <div className="name">Đặng Văn Tỵ</div>
+          <div className="name">{user?.lastName + ' ' + user?.firstName}</div>
           <div className="line"></div>
           <div className="title-content">
             <div className="left">
-              <div className="text">Địa chỉ: Đà Nẵng</div>
-              <div className="text">Email: dangvantydh@gmail.com</div>
+              <div className="text">
+                {strings['address']} {user?.address}
+              </div>
+              <div className="text">Email: {user?.email}</div>
             </div>
             <div className="right">
-              <div className="text">Số điện thoại: 080980809</div>
-              <div className="text">Giới tính: Nam</div>
+              <div className="text">
+                {strings['phone']} {user?.phone}
+              </div>
+              <div className="text">
+                {strings['gender']} {getMale(user?.male)}
+              </div>
             </div>
           </div>
         </div>
@@ -25,3 +44,4 @@ export default function Information() {
     </div>
   );
 }
+export default multilanguage(Information);
