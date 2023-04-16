@@ -6,7 +6,6 @@ import { multilanguage, loadLanguages } from 'redux-multilanguage';
 import { connect } from 'react-redux';
 import { BreadcrumbsProvider } from 'react-breadcrumbs-dynamic';
 import { CheckLogin, Protect } from './protectRoute';
-import SellPet from '#/pages/InforUser/SellPet';
 // home pages
 
 const Home = lazy(() => {
@@ -61,6 +60,16 @@ const InforUser = lazy(() => {
     setTimeout(() => resolve(import('#/pages/InforUser/InforUser')), 500);
   });
 });
+const SellPet = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/InforUser/SellPet')), 500);
+  });
+});
+const OrderAndBookUser = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('#/pages/InforUser/OrderAndBookUser')), 500);
+  });
+});
 const BlogHome = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(import('#/pages/blogs/Blog')), 500);
@@ -112,6 +121,8 @@ const App = (props) => {
               <Route element={<Protect />}>
                 <Route exact path="/sell-your-pet" element={<SellPet />} />
                 <Route path={'/my-account'} element={<InforUser />} />
+                <Route path={'/checkout'} element={<Checkout />} />
+                <Route path={'/order-and-book-history'} element={<OrderAndBookUser />} />
               </Route>
               <Route exact path={'/'} element={<Home />} />
               <Route path={'/contact'} element={<Contact />} />
@@ -122,7 +133,7 @@ const App = (props) => {
               {/* <Route path={'/shop/product-detail'} element={<ProductDetail />} /> */}
               <Route path={'/about'} element={<About />} />
               <Route path={'/cart'} element={<Cart />} />
-              <Route path={'/checkout'} element={<Checkout />} />
+
               <Route path={'/wishlist'} element={<WishList />} />
               <Route path={'/blog'} element={<BlogHome />} />
               <Route path={'/blog/:slug.:id.html'} element={<BlogDetail />} />

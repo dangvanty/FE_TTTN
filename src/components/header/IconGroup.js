@@ -54,6 +54,9 @@ const IconGroup = ({
             ) : (
               <>
                 <li>
+                  <Link to={'/order-and-book-history'}>{strings['order_book']}</Link>
+                </li>
+                <li>
                   <Link to={'/my-account'}>{strings['your_profile']}</Link>
                 </li>
                 <li>

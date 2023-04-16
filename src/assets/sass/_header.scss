@@ -419,12 +419,12 @@
     .account-dropdown {
       background: #fff none repeat scroll 0 0;
       box-shadow: 0 1px 7px -2px rgba(0, 0, 0, 0.3);
-      right: 0;
+      right: -30px;
       padding: 8px 12px 10px;
       position: absolute;
       text-align: left;
       top: 190%;
-      width: 150px;
+      width: 210px;
       z-index: 220;
       visibility: hidden;
       opacity: 0;
@@ -642,12 +642,17 @@
       }
       .shopping-cart-btn {
         margin-top: 23px;
-        a {
+        a,
+        button {
           margin-bottom: 20px;
           padding: 16px 40px 17px;
           font-weight: 500;
           font-size: 14px;
           display: block;
+        }
+        .custom-btn-checkout {
+          border: 1px solid #333;
+          width: 100%;
         }
       }
     }

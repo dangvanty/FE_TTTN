@@ -7,11 +7,12 @@ import MobileMenu from '#/components/header/MobileMenu';
 import HeaderTop from '#/components/header/HeaderTop';
 import axiosClient from '#/helper/axiosClient';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass, headerBgClass }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const header = document.querySelector('.sticky-bar');
     setHeaderTop(header.offsetTop);
@@ -41,6 +42,7 @@ const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass, headerBgClass
         localStorage.removeItem('tokenPet');
         console.log(res);
         setUser(null);
+        navigate('/');
         return;
       })
       .catch((error) => console.log(error));

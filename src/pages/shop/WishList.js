@@ -11,8 +11,18 @@ import { addToCart } from '#/redux/action/cartActions';
 import LayoutOne from '#/layouts/LayoutOne';
 import Breadcrumb from '#/wrappers/breadcrumb/Breadcrumb';
 import { to_slug } from '#/helper/formatToSlug';
+import { multilanguage } from 'redux-multilanguage';
+import { fCurrency } from '#/helper/formatNumber';
 
-const Wishlist = ({ cartItems, currency, addToCart, wishlistItems, removeFromWishlist, removeAllFromWishlist }) => {
+const Wishlist = ({
+  strings,
+  cartItems,
+  currency,
+  addToCart,
+  wishlistItems,
+  removeFromWishlist,
+  removeAllFromWishlist,
+}) => {
   const { addToast } = useToasts();
   const { pathname } = useLocation();
 
@@ -23,8 +33,8 @@ const Wishlist = ({ cartItems, currency, addToCart, wishlistItems, removeFromWis
         <meta name="description" content="Wishlist page of PetServices react minimalist eCommerce template." />
       </MetaTags>
 
-      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={pathname}>Wishlist</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/'}>{strings['home']}</BreadcrumbsItem>
+      <BreadcrumbsItem to={pathname}>{strings['Wishlist']}</BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
@@ -33,18 +43,18 @@ const Wishlist = ({ cartItems, currency, addToCart, wishlistItems, removeFromWis
           <div className="container">
             {wishlistItems && wishlistItems.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your wishlist items</h3>
+                <h3 className="cart-page-title">{strings['Your_wishlist_items']}</h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
                       <table>
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Add To Cart</th>
-                            <th>action</th>
+                            <th>{strings['Image']}</th>
+                            <th>{strings['Product_name']}</th>
+                            <th>{strings['Unit_price']}</th>
+                            <th>{strings['Add_to_cart']}</th>
+                            <th>{strings['action']}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -87,15 +97,15 @@ const Wishlist = ({ cartItems, currency, addToCart, wishlistItems, removeFromWis
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {finalProductPrice + ' ' + currency.currencySymbol}
+                                        {fCurrency(finalProductPrice) + ' ' + currency.currencySymbol}
                                       </span>
                                       <span className="amount text-danger">
-                                        {finalDiscountedPrice + ' ' + currency.currencySymbol}
+                                        {fCurrency(finalDiscountedPrice) + ' ' + currency.currencySymbol}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount text-danger">
-                                      {finalProductPrice + ' ' + currency.currencySymbol}
+                                      {fCurrency(finalProductPrice) + ' ' + currency.currencySymbol}
                                     </span>
                                   )}
                                 </td>
@@ -106,13 +116,17 @@ const Wishlist = ({ cartItems, currency, addToCart, wishlistItems, removeFromWis
                                       onClick={() => addToCart(wishlistItem, addToast)}
                                       className={cartItem !== undefined && cartItem?.stock > 0 ? 'active' : ''}
                                       disabled={cartItem !== undefined && cartItem?.stock > 0}
-                                      title={wishlistItem !== undefined ? 'Added to cart' : 'Add to cart'}
+                                      title={
+                                        wishlistItem !== undefined ? `${strings['Added']}` : `${strings['Add_to_cart']}`
+                                      }
                                     >
-                                      {cartItem !== undefined && cartItem.stock > 0 ? 'Added' : 'Add to cart'}
+                                      {cartItem !== undefined && cartItem.stock > 0
+                                        ? `${strings['Added']}`
+                                        : `${strings['Add_to_cart']}`}
                                     </button>
                                   ) : (
                                     <button disabled className="active">
-                                      Out of stock
+                                      {strings['Out_of_stock']}
                                     </button>
                                   )}
                                 </td>
@@ -135,10 +149,10 @@ const Wishlist = ({ cartItems, currency, addToCart, wishlistItems, removeFromWis
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link to={'/shop-grid-standard'}>Continue Shopping</Link>
+                        <Link to={'/products'}>{strings['Continue_Shopping']}</Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => removeAllFromWishlist(addToast)}>Clear Wishlist</button>
+                        <button onClick={() => removeAllFromWishlist(addToast)}>{strings['Clear_Wishlist']}</button>
                       </div>
                     </div>
                   </div>
@@ -152,7 +166,7 @@ const Wishlist = ({ cartItems, currency, addToCart, wishlistItems, removeFromWis
                       <i className="pe-7s-like"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in wishlist <br /> <Link to={'/shop-grid-standard'}>Add Items</Link>
+                      No items found in wishlist <br /> <Link to={'/products'}>Add Items</Link>
                     </div>
                   </div>
                 </div>
@@ -199,4 +213,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);
+export default connect(mapStateToProps, mapDispatchToProps)(multilanguage(Wishlist));

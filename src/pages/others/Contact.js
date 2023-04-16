@@ -31,7 +31,7 @@ const Contact = ({ strings }) => {
     send(SERVICE_ID, TEMPLATE_ID, data, PUBLIC_ID)
       .then(
         () => {
-          addToast('Send information success', { appearance: 'success', autoDismiss: true });
+          addToast('Gửi thông tin thành công!', { appearance: 'success', autoDismiss: true });
         },
         (error) => {
           console.log(error);

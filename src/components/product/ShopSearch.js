@@ -7,7 +7,7 @@ const ShopSearch = ({ strings, getSearch }) => {
       <h4 className="pro-sidebar-title">{strings['search']} </h4>
       <div className="pro-sidebar-search mb-50 mt-25">
         <form className="pro-sidebar-search-form" action="#" onSubmit={(e) => e.preventDefault()}>
-          <input type="text" placeholder="Search here..." onChange={(e) => getSearch(e.target.value)} />
+          <input type="text" placeholder={strings['search_here']} onChange={(e) => getSearch(e.target.value)} />
           <button>
             <i className="pe-7s-search" />
           </button>

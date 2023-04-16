@@ -1671,7 +1671,8 @@ textarea:focus {
   }
 }
 
-a.default-btn {
+a.default-btn,
+button.default-btn {
   font-size: 16px;
   color: #010101;
   display: inline-block;

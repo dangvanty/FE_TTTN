@@ -1,13 +1,12 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { multilanguage } from 'redux-multilanguage';
 
-const TextGridOneSingle = ({ data, spaceBottomClass }) => {
+const TextGridOneSingle = ({ strings, data, spaceBottomClass }) => {
   return (
     <div className="col-lg-4 col-md-4">
-      <div
-        className={`single-mission ${spaceBottomClass ? spaceBottomClass : ""}`}
-      >
-        <h3>{data.title}</h3>
+      <div className={`single-mission ${spaceBottomClass ? spaceBottomClass : ''}`}>
+        <h3>{strings[`${data.title}`]}</h3>
         <p>{data.text}</p>
       </div>
     </div>
@@ -16,7 +15,7 @@ const TextGridOneSingle = ({ data, spaceBottomClass }) => {
 
 TextGridOneSingle.propTypes = {
   data: PropTypes.object,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
-export default TextGridOneSingle;
+export default multilanguage(TextGridOneSingle);

@@ -19,6 +19,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import axiosClient from '#/helper/axiosClient';
 import { useToasts } from 'react-toast-notifications';
+import { TimePicker } from 'react-ios-time-picker';
 function RegisterService({ services, strings }) {
   const { pathname } = useLocation();
   const {
@@ -55,6 +56,13 @@ function RegisterService({ services, strings }) {
     setTypeWeight(e.label);
   };
   const { addToast } = useToasts();
+
+  const [time, setTime] = useState('10:00');
+
+  const onChangeTime = (timeValue) => {
+    setTime(timeValue);
+  };
+
   const onSubmit = (data) => {
     axiosClient
       .get('/users/me')
@@ -71,6 +79,8 @@ function RegisterService({ services, strings }) {
             typeService,
             typeWeight,
             date,
+            time,
+            status: 0,
           })
           .then(() => {
             reset();
@@ -188,15 +198,19 @@ function RegisterService({ services, strings }) {
                       />
                     </div>
                   </div>
+                  <div className="input-admin col-lg-12 col-md-12">
+                    <label htmlFor="">{strings['type_weight']}</label>
+                    <Select
+                      closeMenuOnSelect={false}
+                      onChange={onchangeWeight}
+                      defaultValue={[{ value: 1, label: '15kg - 20kg' }]}
+                      options={dataWeight}
+                    />
+                  </div>
                   <div className="wrapper-input row">
                     <div className="input-admin col-lg-6 col-md-12">
-                      <label htmlFor="">{strings['type_weight']}</label>
-                      <Select
-                        closeMenuOnSelect={false}
-                        onChange={onchangeWeight}
-                        defaultValue={[{ value: 1, label: '15kg - 20kg' }]}
-                        options={dataWeight}
-                      />
+                      <label htmlFor="">{strings['time_book']}</label>
+                      <TimePicker onChange={onChangeTime} value={time} />
                     </div>
                     <div className="input-admin col-lg-6 col-md-12">
                       <label htmlFor="">{strings['date_book']}</label>

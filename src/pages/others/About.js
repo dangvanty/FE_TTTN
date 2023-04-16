@@ -8,8 +8,9 @@ import SectionTitleWithText from '#/components/section-title/SectionTitleWithTex
 import BannerOne from '#/wrappers/banner/BannerOne';
 import TextGridOne from '#/wrappers/text-grid/TextGridOne';
 import { useLocation } from 'react-router-dom';
+import { multilanguage } from 'redux-multilanguage';
 
-const About = () => {
+const About = ({ strings }) => {
   const { pathname } = useLocation();
 
   return (
@@ -18,8 +19,8 @@ const About = () => {
         <title>PetServices | About us</title>
         <meta name="description" content="About page of PetServices react minimalist eCommerce template." />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>About us</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>{strings['home']}</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>{strings['about_us']}</BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
@@ -41,4 +42,4 @@ About.propTypes = {
   location: PropTypes.object,
 };
 
-export default About;
+export default multilanguage(About);

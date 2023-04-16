@@ -3,8 +3,9 @@ import React from 'react';
 import TextGridOneSingle from '#/components/text-grid/TextGridOneSingle.js';
 import { MISSION_GOAL } from '#/constants/constants';
 import { Accordion, Card } from 'react-bootstrap';
+import { multilanguage } from 'redux-multilanguage';
 
-const TextGridOne = ({ spaceBottomClass }) => {
+const TextGridOne = ({ strings, spaceBottomClass }) => {
   return (
     <div className={`about-mission-area ${spaceBottomClass ? spaceBottomClass : ''}`}>
       <div className="container">
@@ -20,7 +21,7 @@ const TextGridOne = ({ spaceBottomClass }) => {
             <Card className="single-my-account mb-20">
               <Card.Header className="panel-heading">
                 <Accordion.Toggle variant="link" eventKey="0">
-                  <h3 className="panel-title">Chính sách dịch vụ mua hàng</h3>
+                  <h3 className="panel-title">{strings['policy_store']}</h3>
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
@@ -40,4 +41,4 @@ TextGridOne.propTypes = {
   spaceBottomClass: PropTypes.string,
 };
 
-export default TextGridOne;
+export default multilanguage(TextGridOne);

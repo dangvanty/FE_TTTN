@@ -29,13 +29,13 @@ const Banner = ({ strings, spaceTopClass, spaceBottomClass }) => {
               <div className="banner-content-3 banner-position-hm15-2 pink-banner">
                 <h3>{strings['product_for_pet']}</h3>
                 <p>{strings['cheap_and_quality']}</p>
-                <Link to="/shop-food-pet">
+                <Link to="/products">
                   <i className="fa fa-long-arrow-right" />
                 </Link>
               </div>
             </div>
             <div className="single-banner mb-20">
-              <Link to="/pet">
+              <Link to="/pets">
                 <img src={bannerHome.PET} alt="" />
               </Link>
               <div className="banner-content-3 banner-position-hm17-1 pink-banner">
@@ -44,7 +44,7 @@ const Banner = ({ strings, spaceTopClass, spaceBottomClass }) => {
                   {strings['strongs']}
                   <span>{strings['lovely']}</span>
                 </p>
-                <Link to="/shop-pet">
+                <Link to="/pets">
                   <i className="fa fa-long-arrow-right" />
                 </Link>
               </div>

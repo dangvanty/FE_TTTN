@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import MetaTags from 'react-meta-tags';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
@@ -11,13 +11,28 @@ import LayoutOne from '#/layouts/LayoutOne';
 import Breadcrumb from '#/wrappers/breadcrumb/Breadcrumb';
 import { fCurrency } from '#/helper/formatNumber';
 import { multilanguage } from 'redux-multilanguage';
+import { to_slug } from '#/helper/formatToSlug';
+import axiosClient from '#/helper/axiosClient';
 
 const Cart = ({ strings, cartItems, currency, decrementQty, addToCart, removeFromCart, removeAllFromCart }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
   const { pathname } = useLocation();
   let cartTotalPrice = 0;
-
+  const navigate = useNavigate();
+  const handleCheckout = () => {
+    axiosClient
+      .get('/users/me')
+      .then((res) => {
+        navigate('/checkout');
+      })
+      .catch((error) => {
+        addToast('Bạn cần đăng nhập để thực hiện!', {
+          appearance: 'warning',
+          autoDismiss: false,
+        });
+      });
+  };
   return (
     <Fragment>
       <MetaTags>
@@ -35,19 +50,19 @@ const Cart = ({ strings, cartItems, currency, decrementQty, addToCart, removeFro
           <div className="container">
             {cartItems && cartItems.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your cart items</h3>
+                <h3 className="cart-page-title">{strings['Your_cart_items']}</h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
                       <table>
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Qty</th>
-                            <th>Subtotal</th>
-                            <th>action</th>
+                            <th>{strings['Image']}</th>
+                            <th>{strings['Product_name']}</th>
+                            <th>{strings['Unit_price']}</th>
+                            <th>{strings['Qty']}</th>
+                            <th>{strings['Subtotal']}</th>
+                            <th>{strings['action']}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -62,13 +77,27 @@ const Cart = ({ strings, cartItems, currency, decrementQty, addToCart, removeFro
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
-                                  <Link to={process.env.PUBLIC_URL + '/product/' + cartItem.id}>
+                                  <Link
+                                    to={`/${typeof cartItem.id === 'string' ? 'pets' : 'products'}/${to_slug(
+                                      cartItem?.name,
+                                    )}.${
+                                      typeof cartItem.id === 'string' ? cartItem.id.split('petpet')[0] : cartItem.id
+                                    }.html`}
+                                  >
                                     <img className="img-fluid" src={cartItem?.avatar} alt="" />
                                   </Link>
                                 </td>
 
                                 <td className="product-name">
-                                  <Link to={process.env.PUBLIC_URL + '/product/' + cartItem.id}>{cartItem?.name}</Link>
+                                  <Link
+                                    to={`/${typeof cartItem.id === 'string' ? 'pets' : 'products'}/${to_slug(
+                                      cartItem?.name,
+                                    )}.${
+                                      typeof cartItem.id === 'string' ? cartItem.id.split('petpet')[0] : cartItem.id
+                                    }.html`}
+                                  >
+                                    {cartItem?.name}
+                                  </Link>
                                 </td>
 
                                 <td className="product-price-cart">
@@ -144,13 +173,13 @@ const Cart = ({ strings, cartItems, currency, decrementQty, addToCart, removeFro
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link to={'/products'}>Continue Shopping</Link>
+                        <Link to={'/products'}>{strings['Continue_Shopping']}</Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => removeAllFromCart(addToast)}>Clear Shopping Cart</button>
+                        <button onClick={() => removeAllFromCart(addToast)}>{strings['Clear_Shopping_Cart']}</button>
                       </div>
                       <div className="grand-totall">
-                        <Link to={'/checkout'}>Proceed to Checkout</Link>
+                        <button onClick={handleCheckout}>{strings['checkout']}</button>
                       </div>
                     </div>
                   </div>

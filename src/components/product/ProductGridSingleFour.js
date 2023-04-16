@@ -5,8 +5,10 @@ import { useToasts } from 'react-toast-notifications';
 import { getDiscountPrice } from '#/helper/product';
 import { fCurrency } from '#/helper/formatNumber';
 import { to_slug } from '#/helper/formatToSlug';
+import { multilanguage } from 'redux-multilanguage';
 
 const ProductGridSingleFour = ({
+  strings,
   product,
   currency,
   addToCart,
@@ -48,7 +50,9 @@ const ProductGridSingleFour = ({
                 <button
                   className={wishlistItem !== undefined ? 'active' : ''}
                   disabled={wishlistItem !== undefined}
-                  title={wishlistItem !== undefined ? 'Added to wishlist' : 'Add to wishlist'}
+                  title={
+                    wishlistItem !== undefined ? `${strings['Added_to_wishlist']}` : `${strings['Add_to_wishlist']}`
+                  }
                   onClick={() => addToWishlist(product, addToast)}
                 >
                   <i className="fa fa-heart-o" />
@@ -60,13 +64,13 @@ const ProductGridSingleFour = ({
                     onClick={() => addToCart(product, addToast)}
                     className={cartItem !== undefined && cartItem?.stock > 0 ? 'active' : ''}
                     disabled={cartItem !== undefined && cartItem?.stock > 0}
-                    title={cartItem !== undefined ? 'Added to cart' : 'Add to cart'}
+                    title={cartItem !== undefined ? `${strings['Added']}` : `${strings['Add_to_cart']}`}
                   >
                     {' '}
                     <i className="fa fa-shopping-cart"></i>{' '}
                   </button>
                 ) : (
-                  <button disabled className="active" title="Out of stock">
+                  <button disabled className="active" title={strings['Out_of_stock']}>
                     <i className="fa fa-shopping-cart"></i>
                   </button>
                 )}
@@ -109,4 +113,4 @@ ProductGridSingleFour.propTypes = {
   wishlistItem: PropTypes.object,
 };
 
-export default ProductGridSingleFour;
+export default multilanguage(ProductGridSingleFour);

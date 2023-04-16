@@ -67,50 +67,52 @@ function MyPet({ currency }) {
   return (
     <div className="tab-pane">
       <Grid container spacing={4}>
-        {data?.length !== 0
-          ? data?.map((item) => {
-              return (
-                <Grid item lg={6} md={6} sm={6} xs={12}>
-                  <div className="myPet">
-                    <div className="avatar">
-                      <img src={item.avatar} alt="" />
-                    </div>
-                    <div className="text">
-                      <div className="text_name">{item.name}</div>
-                      <div className="text_price">
-                        {fCurrency(item?.price * currency.currencyRate)}
-                        {' ' + currency.currencySymbol}
-                      </div>
-                      <div className="detail">
-                        <button className="detail-pet-btn" onClick={() => handleDetailClick(item)}>
-                          Chi tiết...
-                        </button>
-                      </div>
-                    </div>
-                    <div className="checkadmin">{renderCheckAdmin(item.checkAdmin)}</div>
-                    {item.checkAdmin === 1 ? (
-                      <>
-                        <button className="btn-delete" onClick={() => handleDelete(item.id)}>
-                          Xoá
-                        </button>
-                        {item.status === 1 ? (
-                          <button className="btn-no" onClick={() => handleChangeStatus(item.id, 0)}>
-                            Không bán
-                          </button>
-                        ) : (
-                          <button className="btn-yes" onClick={() => handleChangeStatus(item.id, 1)}>
-                            Đăng bán
-                          </button>
-                        )}
-                      </>
-                    ) : (
-                      ''
-                    )}
+        {data?.length !== 0 ? (
+          data?.map((item) => {
+            return (
+              <Grid item lg={6} md={6} sm={6} xs={12}>
+                <div className="myPet">
+                  <div className="avatar">
+                    <img src={item.avatar} alt="" />
                   </div>
-                </Grid>
-              );
-            })
-          : ''}
+                  <div className="text">
+                    <div className="text_name">{item.name}</div>
+                    <div className="text_price">
+                      {fCurrency(item?.price * currency.currencyRate)}
+                      {' ' + currency.currencySymbol}
+                    </div>
+                    <div className="detail">
+                      <button className="detail-pet-btn" onClick={() => handleDetailClick(item)}>
+                        Chi tiết...
+                      </button>
+                    </div>
+                  </div>
+                  <div className="checkadmin">{renderCheckAdmin(item.checkAdmin)}</div>
+                  {item.checkAdmin === 1 ? (
+                    <>
+                      <button className="btn-delete" onClick={() => handleDelete(item.id)}>
+                        Xoá
+                      </button>
+                      {item.status === 1 ? (
+                        <button className="btn-no" onClick={() => handleChangeStatus(item.id, 0)}>
+                          Không bán
+                        </button>
+                      ) : (
+                        <button className="btn-yes" onClick={() => handleChangeStatus(item.id, 1)}>
+                          Đăng bán
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              </Grid>
+            );
+          })
+        ) : (
+          <div>Bạn chưa đăng thông tin thú cưng nào!</div>
+        )}
       </Grid>
       <PetModal show={modalShow} onHide={() => setModalShow(false)} product={product} currency={currency} />
     </div>

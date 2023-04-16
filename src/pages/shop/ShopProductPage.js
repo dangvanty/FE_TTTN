@@ -82,8 +82,8 @@ const ShopProductPage = ({ strings, pathname1 }) => {
         <meta name="description" content="Shop page of PetServices react minimalist eCommerce template." />
       </MetaTags>
 
-      <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={'/pathname'}>Shop</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/'}>{strings['home']}</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/pathname'}>{strings['store']}</BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}

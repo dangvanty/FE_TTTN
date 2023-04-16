@@ -1,8 +1,9 @@
 import { to_slug } from '#/helper/formatToSlug';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { multilanguage } from 'redux-multilanguage';
 const facebookShare = 'https://www.facebook.com/sharer/sharer.php?u=';
-const BlogPosts = ({ Blogs }) => {
+const BlogPosts = ({ strings, Blogs }) => {
   const dateFormat = (date) => {
     return new Date(date).toDateString();
   };
@@ -30,10 +31,10 @@ const BlogPosts = ({ Blogs }) => {
                 <p>{blog?.samary}</p>
                 <div className="blog-share-comment">
                   <div className="blog-btn-2">
-                    <Link to={`/blog/${to_slug(blog?.name)}.${blog?.id}.html`}>read more</Link>
+                    <Link to={`/blog/${to_slug(blog?.name)}.${blog?.id}.html`}>{strings['read_more']}</Link>
                   </div>
                   <div className="blog-share">
-                    <span>share :</span>
+                    <span>{strings['share']} :</span>
                     <div className="share-social">
                       <ul>
                         <li>
@@ -58,4 +59,4 @@ const BlogPosts = ({ Blogs }) => {
   );
 };
 
-export default BlogPosts;
+export default multilanguage(BlogPosts);

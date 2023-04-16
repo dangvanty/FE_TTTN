@@ -4,10 +4,12 @@ import Swiper from 'react-id-swiper';
 import { getProductCartQty } from '#/helpers/product';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { multiValueCSS } from 'react-select/dist/declarations/src/components/MultiValue';
 
 function ProductModal(props) {
   const { product } = props;
   const { currency } = props;
+  const { strings } = props;
   const { discountedprice } = props;
   const { finalproductprice } = props;
   const { finaldiscountedprice } = props;
@@ -224,7 +226,7 @@ function ProductModal(props) {
                           Add To Cart{' '}
                         </button>
                       ) : (
-                        <button disabled>Out of Stock</button>
+                        <button disabled>{strings['Out_of_stock']}</button>
                       )}
                     </div>
                     <div className="pro-details-wishlist">
@@ -269,4 +271,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ProductModal);
+export default connect(mapStateToProps)(multiValueCSS(ProductModal));

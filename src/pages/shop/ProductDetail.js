@@ -56,8 +56,8 @@ const ProductDetail = ({ strings, currency, addToCart, addToWishlist, cartItems,
         <meta name="description" content="Contact of flone react minimalist eCommerce template." />
       </MetaTags>
       <BreadcrumbsItem to={'/'}>{strings['home']}</BreadcrumbsItem>
-      <BreadcrumbsItem to={'/shop'}>{strings['shop']}</BreadcrumbsItem>
-      <BreadcrumbsItem to={'/shop/product-detail'}>{productData?.name}</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/products'}>{strings['shop']}</BreadcrumbsItem>
+      <BreadcrumbsItem to={'/products/product-detail'}>{productData?.name}</BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         <Breadcrumb />
         <div className="contact-area pt-50 pb-100">
@@ -179,7 +179,7 @@ const ProductDetail = ({ strings, currency, addToCart, addToWishlist, cartItems,
                         </button>
                       ) : (
                         <button disabled className="active">
-                          Out of Stock
+                          {strings['Out_of_stock']}
                         </button>
                       )}
                     </div>

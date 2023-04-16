@@ -1,11 +1,12 @@
 import PropTypes, { object } from 'prop-types';
 import React from 'react';
 import { setActiveSort } from '#/helper/product';
+import { multilanguage } from 'redux-multilanguage';
 
-const ShopCategories = ({ categories, getSortParams }) => {
+const ShopCategories = ({ strings, categories, getSortParams }) => {
   return (
     <div className="sidebar-widget">
-      <h4 className="pro-sidebar-title">Categories </h4>
+      <h4 className="pro-sidebar-title">{strings['Categories']} </h4>
       <div className="sidebar-widget-list mt-30">
         {categories ? (
           <ul>
@@ -17,7 +18,8 @@ const ShopCategories = ({ categories, getSortParams }) => {
                     setActiveSort(e);
                   }}
                 >
-                  <span className="checkmark" /> All Categories
+                  <span className="checkmark" />
+                  {strings['All_Categories']}
                 </button>
               </div>
             </li>
@@ -52,4 +54,4 @@ ShopCategories.propTypes = {
   getSortParams: PropTypes.func,
 };
 
-export default ShopCategories;
+export default multilanguage(ShopCategories);

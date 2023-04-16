@@ -7,7 +7,7 @@ export const DELETE_ALL_FROM_CART = 'DELETE_ALL_FROM_CART';
 export const addToCart = (item, addToast, quantityCount, selectedProductColor, selectedProductSize) => {
   return (dispatch) => {
     if (addToast) {
-      addToast('Added To Cart', { appearance: 'success', autoDismiss: true });
+      addToast('Đã thêm vào giỏ hàng!', { appearance: 'success', autoDismiss: true });
     }
     dispatch({
       type: ADD_TO_CART,
@@ -32,7 +32,7 @@ export const addToCart = (item, addToast, quantityCount, selectedProductColor, s
 export const decrementQty = (item, addToast) => {
   return (dispatch) => {
     if (addToast) {
-      addToast('Item Decremented From Cart', {
+      addToast('Giảm số lượng thành công!', {
         appearance: 'warning',
         autoDismiss: true,
       });
@@ -44,7 +44,7 @@ export const decrementQty = (item, addToast) => {
 export const removeFromCart = (item, addToast) => {
   return (dispatch) => {
     if (addToast) {
-      addToast('Removed From Cart', { appearance: 'error', autoDismiss: true });
+      addToast('Đã xóa khỏi giỏ hàng thành công!', { appearance: 'error', autoDismiss: true });
     }
     dispatch({ type: DELETE_FROM_CART, payload: item });
   };
@@ -53,7 +53,7 @@ export const removeFromCart = (item, addToast) => {
 export const removeAllFromCart = (addToast) => {
   return (dispatch) => {
     if (addToast) {
-      addToast('Removed All From Cart', {
+      addToast('Đã xóa tất cả khỏi giỏ hàng!', {
         appearance: 'error',
         autoDismiss: true,
       });

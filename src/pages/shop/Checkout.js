@@ -176,7 +176,6 @@ const Checkout = ({ strings, cartItems, currency, removeAllFromCart }) => {
                             <label>{strings['First_Name']}</label>
                             <input
                               type="text"
-                              readOnly
                               {...register('firstName', {
                                 required: 'Không được bỏ trống!',
                                 maxLength: { value: 255, message: 'Vượt quá ký tự cho phép' },
@@ -190,7 +189,6 @@ const Checkout = ({ strings, cartItems, currency, removeAllFromCart }) => {
                             <label>{strings['Last_Name']}</label>
                             <input
                               type="text"
-                              readOnly
                               {...register('lastName', {
                                 required: 'Không được bỏ trống!',
                                 maxLength: { value: 255, message: 'Vượt quá ký tự cho phép' },

@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { addToCart } from '#/redux/action/cartActions';
 import { addToWishlist } from '#/redux/action/wishlistActions';
 import ProductGridListSingle from '#/components/product/ProductGridListSingle';
+import { multilanguage } from 'redux-multilanguage';
 
 const ProductGrid = ({
+  strings,
   products,
   currency,
   addToCart,
@@ -18,22 +20,26 @@ const ProductGrid = ({
 }) => {
   return (
     <Fragment>
-      {products.map((product) => {
-        return (
-          <ProductGridListSingle
-            petOrProduct={petOrProduct}
-            sliderClassName={sliderClassName}
-            spaceBottomClass={spaceBottomClass}
-            product={product}
-            currency={currency}
-            addToCart={addToCart}
-            addToWishlist={addToWishlist}
-            cartItem={cartItems.filter((cartItem) => cartItem.id === product.id)[0]}
-            wishlistItem={wishlistItems.filter((wishlistItem) => wishlistItem.id === product.id)[0]}
-            key={product.id}
-          />
-        );
-      })}
+      {products ? (
+        products.map((product) => {
+          return (
+            <ProductGridListSingle
+              petOrProduct={petOrProduct}
+              sliderClassName={sliderClassName}
+              spaceBottomClass={spaceBottomClass}
+              product={product}
+              currency={currency}
+              addToCart={addToCart}
+              addToWishlist={addToWishlist}
+              cartItem={cartItems.filter((cartItem) => cartItem.id === product.id)[0]}
+              wishlistItem={wishlistItems.filter((wishlistItem) => wishlistItem.id === product.id)[0]}
+              key={product.id}
+            />
+          );
+        })
+      ) : (
+        <div>{strings['no_result_searched']}</div>
+      )}
     </Fragment>
   );
 };
@@ -68,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductGrid);
+export default connect(mapStateToProps, mapDispatchToProps)(multilanguage(ProductGrid));

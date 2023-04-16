@@ -19,16 +19,16 @@ const BlogHome = ({ strings }) => {
   const [searchParams] = useSearchParams();
   const [nameBlog, setNameBlog] = useState(null);
   const [blogData, setBlogData] = useState(null);
-  const [blogDataCurent, setBlogDataCurent] = useState(null);
+  const [blogDataCurent, setBlogDataCurent] = useState([]);
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const getSearch = (name) => {
     setNameBlog(name);
   };
-  const paramName = searchParams.get('name') || '';
+  let paramName = searchParams.get('name');
   useEffect(() => {
     axiosClient
-      .get('/news/newsPage', { params: { page: null, name: paramName } })
+      .get('/news/newsPage', { params: { page: null, name: paramName || nameBlog } })
       .then((res) => {
         setBlogData(res?.data?.rows);
       })
@@ -53,7 +53,11 @@ const BlogHome = ({ strings }) => {
                 <div className="mr-20">
                   <div className="row">
                     {/* blog posts */}
-                    <BlogPosts Blogs={blogDataCurent} />
+                    {blogDataCurent?.length === 0 ? (
+                      <div>{strings['no_result_searched']}</div>
+                    ) : (
+                      <BlogPosts Blogs={blogDataCurent} />
+                    )}
                   </div>
                   {/* blog pagination */}
                   {/* <BlogPagination /> */}

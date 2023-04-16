@@ -86,17 +86,17 @@ const FooterOne = ({
               <div className="footer-list">
                 <ul>
                   <li>
-                    <a href="/shop/product" target="_blank" rel="noopener noreferrer" className="fast-links">
+                    <a href="/products" target="_blank" rel="noopener noreferrer" className="fast-links">
                       {strings['shop_product']}
                     </a>
                   </li>
                   <li>
-                    <a href="/shop/pet" target="_blank" rel="noopener noreferrer" className="fast-links">
+                    <a href="/pets" target="_blank" rel="noopener noreferrer" className="fast-links">
                       {strings['shop_pet']}
                     </a>
                   </li>
                   <li>
-                    <a href="/service" target="_blank" rel="noopener noreferrer" className="fast-links">
+                    <a href="/register-service" target="_blank" rel="noopener noreferrer" className="fast-links">
                       {strings['register_service']}
                     </a>
                   </li>
@@ -117,14 +117,14 @@ const FooterOne = ({
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={'/about_us'} className="fast-links">
+                    <a href={'/about'} className="fast-links">
                       {strings['policy']}
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link to={'/contact'} className="fast-links">
+                    <a href={'/contact'} className="fast-links">
                       {strings['contact_us']}
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </div>

@@ -5,8 +5,10 @@ import { useToasts } from 'react-toast-notifications';
 import { getDiscountPrice } from '#/helper/product';
 import { fCurrency } from '#/helper/formatNumber';
 import { to_slug } from '#/helper/formatToSlug';
+import { multilanguage } from 'redux-multilanguage';
 
 const ProductGridListSingle = ({
+  strings,
   product,
   currency,
   addToCart,
@@ -51,7 +53,9 @@ const ProductGridListSingle = ({
                 <button
                   className={wishlistItem !== undefined ? 'active' : ''}
                   disabled={wishlistItem !== undefined}
-                  title={wishlistItem !== undefined ? 'Added to wishlist' : 'Add to wishlist'}
+                  title={
+                    wishlistItem !== undefined ? `${strings['Added_to_wishlist']}` : `${strings['Add_to_wishlist']}`
+                  }
                   onClick={() => addToWishlist(product, addToast)}
                 >
                   <i className="pe-7s-like" />
@@ -63,15 +67,17 @@ const ProductGridListSingle = ({
                     onClick={() => addToCart(product, addToast)}
                     className={cartItem !== undefined && cartItem.quantity > 0 ? 'active' : ''}
                     disabled={cartItem !== undefined && cartItem.quantity > 0}
-                    title={cartItem !== undefined ? 'Added to cart' : 'Add to cart'}
+                    title={cartItem !== undefined ? `${strings['Added']}` : `${strings['Add_to_cart']}`}
                   >
                     {' '}
                     <i className="pe-7s-cart"></i>{' '}
-                    {cartItem !== undefined && cartItem.quantity > 0 ? 'Added' : 'Add to cart'}
+                    {cartItem !== undefined && cartItem.quantity > 0
+                      ? `${strings['Added']}`
+                      : `${strings['Add_to_cart']}`}
                   </button>
                 ) : (
                   <button disabled className="active">
-                    Out of Stock
+                    {strings['Out_of_stock']}
                   </button>
                 )}
               </div>
@@ -157,15 +163,17 @@ const ProductGridListSingle = ({
                         onClick={() => addToCart(product, addToast)}
                         className={cartItem !== undefined && cartItem.quantity > 0 ? 'active' : ''}
                         disabled={cartItem !== undefined && cartItem.quantity > 0}
-                        title={cartItem !== undefined ? 'Added to cart' : 'Add to cart'}
+                        title={cartItem !== undefined ? `${strings['Added']}` : `${strings['Add_to_cart']}`}
                       >
                         {' '}
                         <i className="pe-7s-cart"></i>{' '}
-                        {cartItem !== undefined && cartItem.quantity > 0 ? 'Added' : 'Add to cart'}
+                        {cartItem !== undefined && cartItem.quantity > 0
+                          ? `${strings['Added']}`
+                          : `${strings['Add_to_cart']}`}
                       </button>
                     ) : (
                       <button disabled className="active">
-                        Out of Stock
+                        {strings['Out_of_stock']}
                       </button>
                     )}
                   </div>
@@ -174,7 +182,9 @@ const ProductGridListSingle = ({
                     <button
                       className={wishlistItem !== undefined ? 'active' : ''}
                       disabled={wishlistItem !== undefined}
-                      title={wishlistItem !== undefined ? 'Added to wishlist' : 'Add to wishlist'}
+                      title={
+                        wishlistItem !== undefined ? `${strings['Added_to_wishlist']}` : `${strings['Add_to_wishlist']}`
+                      }
                       onClick={() => addToWishlist(product, addToast)}
                     >
                       <i className="pe-7s-like" />
@@ -201,4 +211,4 @@ ProductGridListSingle.propTypes = {
   wishlistItem: PropTypes.object,
 };
 
-export default ProductGridListSingle;
+export default multilanguage(ProductGridListSingle);

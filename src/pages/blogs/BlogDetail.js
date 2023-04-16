@@ -74,6 +74,10 @@ const BlogDetailsStandard = ({ strings }) => {
         <div className="blog-area pt-100 pb-100">
           <div className="container">
             <div className="row flex-row-reverse">
+              <div className="col-lg-3">
+                {/* blog sidebar */}
+                <BlogSidebar getSearch={getSearch} />
+              </div>
               <div className="col-lg-9">
                 <div className="blog-details-wrapper ml-20">
                   {/* blog post */}
@@ -85,10 +89,6 @@ const BlogDetailsStandard = ({ strings }) => {
                     prev={prevBlog ?? 1}
                   />
                 </div>
-              </div>
-              <div className="col-lg-3">
-                {/* blog sidebar */}
-                <BlogSidebar getSearch={getSearch} />
               </div>
             </div>
           </div>
