@@ -127,8 +127,8 @@ const App = (props) => {
               <Route exact path={'/'} element={<Home />} />
               <Route path={'/contact'} element={<Contact />} />
               <Route path={'/products/:slug.:id.html'} element={<ProductDetail />} />
-              <Route path={'/products'} element={<ShopProductPage pathname1="product" />} />
-              <Route path={'/pets'} element={<ShopProductPage pathname1="pet" />} />
+              <Route path={'/products'} element={<ShopProductPage pathname1="products" />} />
+              <Route path={'/pets'} element={<ShopProductPage pathname1="pets" />} />
               <Route path={'/pets/:slug.:id.html'} element={<ProductDetail />} />
               {/* <Route path={'/shop/product-detail'} element={<ProductDetail />} /> */}
               <Route path={'/about'} element={<About />} />

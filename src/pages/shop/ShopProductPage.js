@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import MetaTags from 'react-meta-tags';
 import Paginator from 'react-hooks-paginator';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
@@ -14,6 +14,7 @@ import { useLocation } from 'react-router-dom';
 import { fetchProducts } from '#/redux/action/productActions';
 import axiosClient from '#/helper/axiosClient';
 import { multilanguage } from 'redux-multilanguage';
+import { useMemo } from 'react';
 
 const ShopProductPage = ({ strings, pathname1 }) => {
   const { pathname } = useLocation();
@@ -26,12 +27,13 @@ const ShopProductPage = ({ strings, pathname1 }) => {
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
-  const [products, setProducts] = useState([]);
+  const productsRef = useRef([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [petOrProduct, setPetOrProduct] = useState(valuePetOrProduct);
   const [name, setName] = useState(null);
   const [category, setCategory] = useState(null);
   const [type, settype] = useState(null);
+  const [products, setProducts] = useState([]);
   const pageLimit = 2;
 
   const getLayout = (layout) => {
@@ -53,7 +55,7 @@ const ShopProductPage = ({ strings, pathname1 }) => {
 
   useEffect(() => {
     axiosClient
-      .get('/shops', { params: { page: 1, type: type, category: category, petOrProduct: petOrProduct, name: name } })
+      .get('/shops', { params: { page: 1, type: type, category: category, petOrProduct: pathname1, name: name } })
       .then((res) => {
         const data = [];
         res?.data?.rows.forEach((item) => {
@@ -64,16 +66,21 @@ const ShopProductPage = ({ strings, pathname1 }) => {
             data.push(item);
           }
         });
+        productsRef.current = data;
         setProducts(data);
       })
       .catch((error) => console.log(error));
-    setPetOrProduct(valuePetOrProduct);
-    let sortedProducts = getSortedProducts(products, sortType, sortValue);
+    // setPetOrProduct(valuePetOrProduct);
+  }, [valuePetOrProduct, name]);
+
+  useEffect(() => {
+    let sortedProducts = getSortedProducts(productsRef.current, sortType, sortValue);
     const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
     sortedProducts = filterSortedProducts;
     setSortedProducts(sortedProducts);
     setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-  }, [offset, products, sortType, sortValue, filterSortType, filterSortValue, pathname, name]);
+  }, [products, offset, sortType, sortValue, filterSortType, filterSortValue]);
+
   console.log('dfproduct:::', products);
   return (
     <Fragment>
