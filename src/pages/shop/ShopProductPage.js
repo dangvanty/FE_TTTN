@@ -34,7 +34,7 @@ const ShopProductPage = ({ strings, pathname1 }) => {
   const [category, setCategory] = useState(null);
   const [type, settype] = useState(null);
   const [products, setProducts] = useState([]);
-  const pageLimit = 2;
+  const pageLimit = 3;
 
   const getLayout = (layout) => {
     setLayout(layout);
