@@ -126,17 +126,17 @@ const App = (props) => {
               </Route>
               <Route exact path={'/'} element={<Home />} />
               <Route path={'/contact'} element={<Contact />} />
-              <Route path={'/products/:slug.:id.html'} element={<ProductDetail />} />
+              <Route path={'/products/:id.html'} element={<ProductDetail />} />
               <Route path={'/products'} element={<ShopProductPage pathname1="products" />} />
               <Route path={'/pets'} element={<ShopProductPage pathname1="pets" />} />
-              <Route path={'/pets/:slug.:id.html'} element={<ProductDetail />} />
+              <Route path={'/pets/:id.html'} element={<ProductDetail />} />
               {/* <Route path={'/shop/product-detail'} element={<ProductDetail />} /> */}
               <Route path={'/about'} element={<About />} />
               <Route path={'/cart'} element={<Cart />} />
 
               <Route path={'/wishlist'} element={<WishList />} />
               <Route path={'/blog'} element={<BlogHome />} />
-              <Route path={'/blog/:slug.:id.html'} element={<BlogDetail />} />
+              <Route path={'/blog/:id.html'} element={<BlogDetail />} />
               <Route path={'/register-service'} element={<RegisterService />} />
               <Route path="*" element={<Notfound />} />
             </Routes>

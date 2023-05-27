@@ -78,9 +78,7 @@ const Cart = ({ strings, cartItems, currency, decrementQty, addToCart, removeFro
                               <tr key={key}>
                                 <td className="product-thumbnail">
                                   <Link
-                                    to={`/${typeof cartItem.id === 'string' ? 'pets' : 'products'}/${to_slug(
-                                      cartItem?.name,
-                                    )}.${
+                                    to={`/${typeof cartItem.id === 'string' ? 'pets' : 'products'}/${
                                       typeof cartItem.id === 'string' ? cartItem.id.split('petpet')[0] : cartItem.id
                                     }.html`}
                                   >
@@ -90,9 +88,7 @@ const Cart = ({ strings, cartItems, currency, decrementQty, addToCart, removeFro
 
                                 <td className="product-name">
                                   <Link
-                                    to={`/${typeof cartItem.id === 'string' ? 'pets' : 'products'}/${to_slug(
-                                      cartItem?.name,
-                                    )}.${
+                                    to={`/${typeof cartItem.id === 'string' ? 'pets' : 'products'}/${
                                       typeof cartItem.id === 'string' ? cartItem.id.split('petpet')[0] : cartItem.id
                                     }.html`}
                                   >

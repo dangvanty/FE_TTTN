@@ -67,9 +67,7 @@ const Wishlist = ({
                               <tr key={key}>
                                 <td className="product-thumbnail">
                                   <Link
-                                    to={`/${wishlistItem?.checkAdmin ? 'pets' : 'products'}/${to_slug(
-                                      wishlistItem.name,
-                                    )}.${
+                                    to={`/${wishlistItem?.checkAdmin ? 'pets' : 'products'}/${
                                       typeof wishlistItem.id === 'string'
                                         ? wishlistItem.id.split('petpet')[0]
                                         : wishlistItem.id
@@ -81,9 +79,7 @@ const Wishlist = ({
 
                                 <td className="product-name text-center">
                                   <Link
-                                    to={`/${wishlistItem?.checkAdmin ? 'pets' : 'products'}/${to_slug(
-                                      wishlistItem.name,
-                                    )}.${
+                                    to={`/${wishlistItem?.checkAdmin ? 'pets' : 'products'}/${
                                       typeof wishlistItem.id === 'string'
                                         ? wishlistItem.id.split('petpet')[0]
                                         : wishlistItem.id

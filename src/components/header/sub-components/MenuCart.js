@@ -43,7 +43,7 @@ const MenuCart = ({ strings, cartData, currency, removeFromCart }) => {
                 <li className="single-shopping-cart" key={key}>
                   <div className="shopping-cart-img">
                     <Link
-                      to={`/${typeof single.id === 'string' ? 'pets' : 'products'}/${to_slug(single?.name)}.${
+                      to={`/${typeof single.id === 'string' ? 'pets' : 'products'}/${
                         typeof single.id === 'string' ? single.id.split('petpet')[0] : single.id
                       }.html`}
                     >
@@ -53,7 +53,7 @@ const MenuCart = ({ strings, cartData, currency, removeFromCart }) => {
                   <div className="shopping-cart-title">
                     <h4>
                       <Link
-                        to={`/${typeof single.id === 'string' ? 'pets' : 'products'}/${to_slug(single?.name)}.${
+                        to={`/${typeof single.id === 'string' ? 'pets' : 'products'}/${
                           typeof single.id === 'string' ? single.id.split('petpet')[0] : single.id
                         }.html`}
                       >

@@ -45,11 +45,7 @@ const BlogPost = ({ strings, blog, clickPrev, clickNext, next, prev }) => {
               <div className="share-social">
                 <ul>
                   <li>
-                    <a
-                      className="facebook"
-                      href={`${facebookShare}${`${URL}/blog/${to_slug(blog?.name || '')}.${blog?.id}.html`}`}
-                      target="_blank"
-                    >
+                    <a className="facebook" href={`${facebookShare}${`${URL}/blog/${blog?.id}.html`}`} target="_blank">
                       <i className="fa fa-facebook" />
                     </a>
                   </li>

@@ -32,7 +32,7 @@ const BlogDetailsStandard = ({ strings }) => {
     //   setPrevBlog(blog);
     // }
     // console.log({ prevBlog, blog });
-    navigate(`/blog/${to_slug(prevBlog?.name)}.${prevBlog?.id}.html`);
+    navigate(`/blog/${prevBlog?.id}.html`);
   };
 
   const clickNext = async () => {
@@ -43,7 +43,7 @@ const BlogDetailsStandard = ({ strings }) => {
     //   setNextBlog(blog);
     // }
 
-    navigate(`/blog/${to_slug(nextBlog?.name)}.${nextBlog?.id}.html`);
+    navigate(`/blog/${nextBlog?.id}.html`);
   };
 
   useEffect(() => {

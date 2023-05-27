@@ -52,7 +52,7 @@ const ProductDetail = ({ strings, currency, addToCart, addToWishlist, cartItems,
   return (
     <Fragment>
       <MetaTags>
-        <title>Pet detail {id}</title>
+        <title>ProductDetail</title>
         <meta name="description" content="Contact of flone react minimalist eCommerce template." />
       </MetaTags>
       <BreadcrumbsItem to={'/'}>{strings['home']}</BreadcrumbsItem>

@@ -15,7 +15,7 @@ const BlogPosts = ({ strings, Blogs }) => {
           <div className="col-lg-6 col-md-6 col-sm-12">
             <div className="blog-wrap-2 mb-30">
               <div className="blog-img-2">
-                <Link to={`/blog/${to_slug(blog?.name)}.${blog?.id}.html`}>
+                <Link to={`/blog/${blog?.id}.html`}>
                   <img src={blog?.avatar} alt="" />
                 </Link>
               </div>
@@ -26,12 +26,12 @@ const BlogPosts = ({ strings, Blogs }) => {
                   </ul>
                 </div>
                 <h4>
-                  <Link to={`/blog/${to_slug(blog?.name)}.${blog?.id}.html`}>{blog?.name}</Link>
+                  <Link to={`/blog/${blog?.id}.html`}>{blog?.name}</Link>
                 </h4>
                 <p>{blog?.samary}</p>
                 <div className="blog-share-comment">
                   <div className="blog-btn-2">
-                    <Link to={`/blog/${to_slug(blog?.name)}.${blog?.id}.html`}>{strings['read_more']}</Link>
+                    <Link to={`/blog/${blog?.id}.html`}>{strings['read_more']}</Link>
                   </div>
                   <div className="blog-share">
                     <span>{strings['share']} :</span>
@@ -40,7 +40,7 @@ const BlogPosts = ({ strings, Blogs }) => {
                         <li>
                           <a
                             className="facebook"
-                            href={`${facebookShare}${`${URL}/blog/${to_slug(blog?.name)}.${blog?.id}.html`}`}
+                            href={`${facebookShare}${`${URL}/blog/${blog?.id}.html`}`}
                             target="_blank"
                           >
                             <i className="fa fa-facebook" />

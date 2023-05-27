@@ -32,7 +32,7 @@ const ProductGridListSingle = ({
         <div className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ''}`}>
           <div className="product-img">
             <Link
-              to={`/${petOrProduct}/${to_slug(product.name)}.${
+              to={`/${petOrProduct}/${
                 typeof product.id === 'string' ? product.id.split('petpet')[0] : product.id
               }.html`}
             >
@@ -86,7 +86,7 @@ const ProductGridListSingle = ({
           <div className="product-content text-center">
             <h3>
               <Link
-                to={`/${petOrProduct}/${to_slug(product.name)}.${
+                to={`/${petOrProduct}/${
                   typeof product.id === 'string' ? product.id.split('petpet')[0] : product.id
                 }.html`}
               >
@@ -111,7 +111,7 @@ const ProductGridListSingle = ({
               <div className="product-list-image-wrap">
                 <div className="product-img">
                   <Link
-                    to={`/${petOrProduct}/${to_slug(product.name)}.${
+                    to={`/${petOrProduct}/${
                       typeof product.id === 'string' ? product.id.split('petpet')[0] : product.id
                     }.html`}
                   >
@@ -137,7 +137,7 @@ const ProductGridListSingle = ({
               <div className="shop-list-content">
                 <h3>
                   <Link
-                    to={`/${petOrProduct}/${to_slug(product.name)}.${
+                    to={`/${petOrProduct}/${
                       typeof product.id === 'string' ? product.id.split('petpet')[0] : product.id
                     }.html`}
                   >

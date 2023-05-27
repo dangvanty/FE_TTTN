@@ -54,14 +54,14 @@ const BlogSidebar = ({ strings, getSearch }) => {
             return (
               <div className="single-sidebar-blog">
                 <div className="sidebar-blog-img">
-                  <Link to={`/blog/${to_slug(blog?.name)}.${blog?.id}.html`}>
+                  <Link to={`/blog/${blog?.id}.html`}>
                     <img src={blog?.avatar} alt="" />
                   </Link>
                 </div>
                 <div className="sidebar-blog-content">
                   <span>{blog?.tagnews[0]?.Tag?.name}</span>
                   <h4>
-                    <Link to={`/blog/${to_slug(blog?.name)}.${blog?.id}.html`}>{blog.name}</Link>
+                    <Link to={`/blog/${blog?.id}.html`}>{blog.name}</Link>
                   </h4>
                 </div>
               </div>

@@ -30,7 +30,7 @@ const ProductGridSingleFour = ({
         <div className={`product-wrap-5 ${spaceBottomClass ? spaceBottomClass : ''}`}>
           <div className="product-img">
             <Link
-              to={`/${typeof product.id === 'string' ? 'pets' : 'products'}/${to_slug(product?.name)}.${
+              to={`/${typeof product.id === 'string' ? 'pets' : 'products'}/${
                 typeof product.id === 'string' ? product.id.split('petpet')[0] : product.id
               }.html`}
             >
@@ -80,7 +80,7 @@ const ProductGridSingleFour = ({
           <div className="product-content-5 text-center">
             <h3>
               <Link
-                to={`/${typeof product.id === 'string' ? 'pets' : 'products'}/${to_slug(product?.name)}.${
+                to={`/${typeof product.id === 'string' ? 'pets' : 'products'}/${
                   typeof product.id === 'string' ? product.id.split('petpet')[0] : product.id
                 }.html`}
               ></Link>
